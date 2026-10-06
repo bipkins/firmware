@@ -1,0 +1,100 @@
+{
+  "profile": "native-public-candidate",
+  "version": "1.0.0",
+  "fqbn": "esp32:esp32:esp32:PSRAM=disabled,FlashSize=2M,PartitionScheme=custom",
+  "source_commit": "7566a8d210926e65014adb4c7f514e4f79dfc92d",
+  "source_dirty": true,
+  "source_sha256": {
+    "firmware/native_cyd/DisplaySetup.h": "b29ead38138cfb50ca397d992a0fdc484a53d494ad9cb065c9e5dcd3954bc0c4",
+    "firmware/native_cyd/EconomyManager.h": "87365fc5a39a6700dcdc8f5754b3eb0a6cd775b368808458c43572cc58b29666",
+    "firmware/native_cyd/EggEngine.h": "6937f60b85362b18198b8f94e312885c20f2f9aab757cf089335702347ca3985",
+    "firmware/native_cyd/HardwareDriver.h": "74a84a57fe06df61ff6547172b174d76f9cbb1ee20bb5a01805d1e5091685e85",
+    "firmware/native_cyd/NativeBootProbe.h": "2a5ff7935a8340920cfb971e5737b322df809b7713bd91be392c5e013920f5a2",
+    "firmware/native_cyd/NativeCapture.h": "17bcf749364990e71048ea4be7a3b0157be37d874db0cd9290c5889fdda9577b",
+    "firmware/native_cyd/NativeFrameBounds.h": "f482cccd3070e6c583886ed44deacf32b88213cdb4d0471a804438f68a653a8b",
+    "firmware/native_cyd/NativeFrameTiming.h": "0449e0ff16aef38958a261693284dc68e3d65634005d9430726dd18904fdbc38",
+    "firmware/native_cyd/NativeGameRenderer.h": "b52913e509cb4f8bc820a4e32a817df8e9425af6c088d247ea49bee6b697f16d",
+    "firmware/native_cyd/NativeGames.h": "832fa572850dd2017fc1d959dc47a17279e46051b8875e2953bd782fc2acfab6",
+    "firmware/native_cyd/NativeInteraction.h": "82daaae33643e6d45de7317c33a31316703d214902a1038903684cdf11bbcc46",
+    "firmware/native_cyd/NativeInternetTime.h": "875b3ffe3cdbee03c05440b8694ac9a1502a248708d3ce6a6aa61dce0b692e91",
+    "firmware/native_cyd/NativeWifiMirror.h": "9d936d9d1d216aad4314d12f458743323e9e72b3fa4060f5cc733e5ec298d76b",
+    "firmware/native_cyd/NativeProvisioning.h": "81b03f262178d352e4f39496de3fe21bdc3ab859b16ad870bed0163cfa64aedd",
+    "firmware/native_cyd/ProceduralRenderer.h": "b90925e83ea39d19b0418e814ba4bf182a44d5714611aaaf02cfc10cf92eadaa",
+    "firmware/native_cyd/SpeciesModels.h": "296fc9814b375fbe5f4f820b7ad79139a5d07ff616787fbda04791b6e0a43817",
+    "firmware/native_cyd/SpeciesPoses.h": "af918d049e59d74c8121ba008bbd873fb5b645532de30226aae74beb70d736b4",
+    "firmware/native_cyd/YamModelData.h": "24eefa1d1afb9b6b08e67e6ebb9d7c018cc619850509fdeb72da86a653fe309b",
+    "firmware/native_cyd/native_cyd.ino": "14fa547b201d11ff059598c62ccd06b50aaae43fcfe7161c05f6417db8e36754",
+    "firmware/native_cyd/partitions.csv": "254ecd69e8b01a6d97655bfafba8f0ce32aad56a1bb67b352a904d5191463a16",
+    "firmware/p4/minigames.h": "079be0d30226492035ebd01acab4f00041d13e3999fadd2d8434425937b9c777"
+  },
+  "staged_sha256": {
+    "firmware/native_cyd/NativeFrameTiming.h": "0449e0ff16aef38958a261693284dc68e3d65634005d9430726dd18904fdbc38",
+    "firmware/native_cyd/SpeciesModels.h": "296fc9814b375fbe5f4f820b7ad79139a5d07ff616787fbda04791b6e0a43817",
+    "firmware/native_cyd/NativeProvisioning.h": "81b03f262178d352e4f39496de3fe21bdc3ab859b16ad870bed0163cfa64aedd",
+    "firmware/native_cyd/NativeGameRenderer.h": "b52913e509cb4f8bc820a4e32a817df8e9425af6c088d247ea49bee6b697f16d",
+    "firmware/native_cyd/NativeWifiMirror.h": "9d936d9d1d216aad4314d12f458743323e9e72b3fa4060f5cc733e5ec298d76b",
+    "firmware/native_cyd/EggEngine.h": "6937f60b85362b18198b8f94e312885c20f2f9aab757cf089335702347ca3985",
+    "firmware/native_cyd/NativeInteraction.h": "82daaae33643e6d45de7317c33a31316703d214902a1038903684cdf11bbcc46",
+    "firmware/native_cyd/NativeGames.h": "832fa572850dd2017fc1d959dc47a17279e46051b8875e2953bd782fc2acfab6",
+    "firmware/native_cyd/ProceduralRenderer.h": "b90925e83ea39d19b0418e814ba4bf182a44d5714611aaaf02cfc10cf92eadaa",
+    "firmware/native_cyd/NativeCapture.h": "17bcf749364990e71048ea4be7a3b0157be37d874db0cd9290c5889fdda9577b",
+    "firmware/native_cyd/native_cyd.ino": "14fa547b201d11ff059598c62ccd06b50aaae43fcfe7161c05f6417db8e36754",
+    "firmware/native_cyd/NativeFrameBounds.h": "f482cccd3070e6c583886ed44deacf32b88213cdb4d0471a804438f68a653a8b",
+    "firmware/native_cyd/YamModelData.h": "24eefa1d1afb9b6b08e67e6ebb9d7c018cc619850509fdeb72da86a653fe309b",
+    "firmware/native_cyd/HardwareDriver.h": "74a84a57fe06df61ff6547172b174d76f9cbb1ee20bb5a01805d1e5091685e85",
+    "firmware/native_cyd/DisplaySetup.h": "b29ead38138cfb50ca397d992a0fdc484a53d494ad9cb065c9e5dcd3954bc0c4",
+    "firmware/native_cyd/EconomyManager.h": "87365fc5a39a6700dcdc8f5754b3eb0a6cd775b368808458c43572cc58b29666",
+    "firmware/native_cyd/NativeBootProbe.h": "2a5ff7935a8340920cfb971e5737b322df809b7713bd91be392c5e013920f5a2",
+    "firmware/native_cyd/NativeInternetTime.h": "e423fde120adaf1d7676cf0cc269f20bbe19b3a4ade627fb53f26e36c2eee054",
+    "firmware/native_cyd/partitions.csv": "254ecd69e8b01a6d97655bfafba8f0ce32aad56a1bb67b352a904d5191463a16",
+    "firmware/native_cyd/SpeciesPoses.h": "af918d049e59d74c8121ba008bbd873fb5b645532de30226aae74beb70d736b4",
+    "firmware/p4/minigames.h": "079be0d30226492035ebd01acab4f00041d13e3999fadd2d8434425937b9c777"
+  },
+  "toolchain": {
+    "arduino_cli": "arduino-cli  Version: 1.5.1 Commit: 01f3d4f2b Date: 2026-06-05T10:22:17Z",
+    "esp32_core": "3.3.11"
+  },
+  "compile_exit": 0,
+  "compile_args": [
+    "arduino-cli",
+    "compile",
+    "--fqbn",
+    "esp32:esp32:esp32:PSRAM=disabled,FlashSize=2M,PartitionScheme=custom",
+    "--build-property",
+    "build.extra_flags=-DTALKTH_PUBLIC_RELEASE=1 -ffile-prefix-map=<user-root>=/toolchain -fmacro-prefix-map=<user-root>=/toolchain",
+    "<isolated-native-sketch>"
+  ],
+  "components": [
+    {
+      "offset": "0x1000",
+      "file": "bipkins-cyd-1.0.0-bootloader.bin",
+      "bytes": 24992,
+      "sha256": "ed87b6c2a1a808d202ae35d82fc30f32233bb5afdaeb19cbb685a7612c4e2171"
+    },
+    {
+      "offset": "0x8000",
+      "file": "bipkins-cyd-1.0.0-partitions.bin",
+      "bytes": 3072,
+      "sha256": "b04ba681eca2feb3b65cb564a6e7961c3caf9beecf21445b0fc2ad087c53a550"
+    },
+    {
+      "offset": "0xe000",
+      "file": "bipkins-cyd-1.0.0-boot_app0.bin",
+      "bytes": 8192,
+      "sha256": "f94c5d786a7a8fab06ac5d10e33bf37711a6697636dc037559ea19cc410a17f0"
+    },
+    {
+      "offset": "0x10000",
+      "file": "bipkins-cyd-1.0.0-app.bin",
+      "bytes": 1388688,
+      "sha256": "49d4847bacf51592a1cd12cc1ee069db5ac5b8726e63741be3ffb0c9d6e679cb"
+    }
+  ],
+  "full": {
+    "file": "bipkins-cyd-1.0.0-full.bin",
+    "sha256": "dcc460bcf4db87aad6ddc64b8448493def25aeb05de195df9d1de86dfdb08800",
+    "bytes": 1454224
+  },
+  "includes_device_nvs": false,
+  "publication": "BLOCKED: independent exposure/security review, clean-device setup, preserved-state hardware and customer acceptance"
+}
