@@ -1,8 +1,10 @@
-# Bipkins CYD Firmware Release
+# Bipkins™ - Virtual Companion Firmware for ESP32 CYD
 
-Official public release repository for **Bipkins** (ESP32-2432S028R "Cheap Yellow Display" / CYD edition).
+An open-source desktop creature platform powered by talkth.ai.
 
-This repository contains clean, credential-free binaries for first-time installation and seamless upgrades of your Bipkin virtual pet device.
+Official public release repository for **Bipkins™** (ESP32-2432S028R "Cheap Yellow Display" / CYD edition).
+
+This repository contains clean, credential-free binaries for first-time installation and seamless upgrades of your Bipkins™ virtual pet device.
 
 ---
 
@@ -90,3 +92,11 @@ This public build contains **no hardcoded Wi-Fi passwords or endpoints**. Wi-Fi 
    [NETWORK] Stored SSID=<SSID>; restart to connect
    ```
 5. Power-cycle or reboot the device. The Bipkin will connect to your local Wi-Fi, verify public time via TLS, and start normal pet care routines!
+
+---
+
+## ⚖️ Legal & Intellectual Property Notice
+
+- **Copyright © 2026 Michael Edward Thornton. All rights reserved.**
+- **Bipkins™** and **Bipkin™** are common-law trademarks of Michael Edward Thornton.
+- All original firmware code, artwork, audio waveforms, and lore are protected under U.S. and international copyright law.
