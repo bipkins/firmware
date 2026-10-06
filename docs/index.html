@@ -96,6 +96,10 @@
             <h6 class="alert-heading fw-bold mb-1">Web Serial Unavailable</h6>
             <small>Web Serial requires Chrome, Edge, or Opera on desktop over HTTPS. Safari and Firefox do not support Web Serial.</small>
           </div>
+          <div slot="not-allowed" class="alert alert-danger mb-0 border-0 text-start" role="alert">
+            <h6 class="alert-heading fw-bold mb-1">HTTPS Required</h6>
+            <small>Web Serial is only allowed over HTTPS or on localhost. Ensure you are accessing via https://.</small>
+          </div>
         </esp-web-install-button>
       </div>
 
