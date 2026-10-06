@@ -32,7 +32,18 @@ b04ba681eca2feb3b65cb564a6e7961c3caf9beecf21445b0fc2ad087c53a550  bipkins-cyd-1.
 
 ---
 
-## 🚀 Installation & Flashing Instructions
+## ⚡ In-Browser Web Flasher (No Installation Required)
+
+If you are using Chrome, Edge, or Opera on desktop, you can flash your Bipkin directly from the web without installing Python or `esptool`:
+
+1. Open the [Bipkins™ Web Flasher](index.html) hosted on GitHub Pages.
+2. Connect your CYD ESP32 board to your computer via USB.
+3. Click **Connect & Install Bipkins™** and select your USB serial port.
+4. Follow the on-screen installer instructions.
+
+---
+
+## 🚀 Manual CLI Flashing Instructions (`esptool.py`)
 
 ### Prerequisites
 - Python 3 with `esptool`:
