@@ -108,6 +108,6 @@ This public build contains **no hardcoded Wi-Fi passwords or endpoints**. Wi-Fi 
 
 ## ⚖️ Legal & Intellectual Property Notice
 
-- **Copyright © 2026 Michael Edward Thornton. All rights reserved.**
-- **Bipkins™** and **Bipkin™** are common-law trademarks of Michael Edward Thornton.
+- **Copyright © 2026 [I-TEAM, INC](https://i-te.am). All rights reserved.**
+- **Bipkins™** and **Bipkin™** are common-law trademarks of [I-TEAM, INC](https://i-te.am).
 - All original firmware code, artwork, audio waveforms, and lore are protected under U.S. and international copyright law.
