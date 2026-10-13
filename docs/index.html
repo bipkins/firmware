@@ -83,7 +83,22 @@
     .form-control::placeholder {
       color: #64748b;
     }
-    .btn-save-wifi {
+    .btn-action-primary {
+      background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
+      color: #ffffff;
+      font-weight: 600;
+      border: none;
+      border-radius: 0.75rem;
+      padding: 0.8rem 1.75rem;
+      box-shadow: 0 4px 14px rgba(2, 132, 199, 0.4);
+      transition: all 0.2s ease-in-out;
+    }
+    .btn-action-primary:hover:not(:disabled) {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(2, 132, 199, 0.6);
+      color: #ffffff;
+    }
+    .btn-action-emerald {
       background: linear-gradient(135deg, #059669 0%, #047857 100%);
       color: #ffffff;
       font-weight: 600;
@@ -93,14 +108,10 @@
       box-shadow: 0 4px 14px rgba(5, 150, 105, 0.4);
       transition: all 0.2s ease-in-out;
     }
-    .btn-save-wifi:hover:not(:disabled) {
+    .btn-action-emerald:hover:not(:disabled) {
       transform: translateY(-2px);
       box-shadow: 0 6px 20px rgba(5, 150, 105, 0.6);
       color: #ffffff;
-    }
-    .btn-save-wifi:disabled {
-      opacity: 0.6;
-      cursor: not-allowed;
     }
     .status-box {
       border-radius: 0.75rem;
@@ -120,6 +131,22 @@
       border-color: rgba(239, 68, 68, 0.5);
       background: rgba(127, 29, 29, 0.3);
     }
+    .nav-pills .nav-link {
+      color: #94a3b8;
+      font-weight: 600;
+      border-radius: 0.75rem;
+      padding: 0.6rem 1.25rem;
+    }
+    .nav-pills .nav-link.active {
+      background-color: #0284c7;
+      color: #ffffff;
+    }
+    .option-card {
+      background: rgba(15, 23, 42, 0.5);
+      border: 1px solid rgba(51, 65, 85, 0.6);
+      border-radius: 1rem;
+      transition: all 0.2s ease;
+    }
   </style>
 </head>
 <body class="py-5">
@@ -129,7 +156,7 @@
       <span class="badge badge-brand rounded-pill px-3 py-2 mb-3 font-monospace">Bipkins™ Official Firmware</span>
       <h1 class="display-5 fw-bold mb-2">Bipkins™ Web Flasher & Setup</h1>
       <p class="text-secondary lead fs-6">
-        Flash companion firmware and configure Wi-Fi directly in Chrome or Edge via Web Serial.
+        Flash companion firmware and connect your ESP32 CYD companion in Chrome or Edge via Web Serial.
       </p>
     </div>
 
@@ -177,64 +204,112 @@
       </div>
 
       <div class="d-flex justify-content-between text-secondary" style="font-size: 0.78rem;">
-        <span>Release: v1.0.0</span>
-        <span>Target: ESP32 (No PSRAM, 2MB Flash)</span>
+        <span>Release: v1.0.0 (Dual Internet / On-Device Keyboard)</span>
+        <span>Target: ESP32 (No PSRAM, 2MB Custom Partition)</span>
         <span>App Offset: 0x10000</span>
       </div>
     </div>
 
-    <!-- Step 2: Wi-Fi Setup -->
+    <!-- Step 2: Internet & Connectivity Setup -->
     <div class="flasher-card p-4 p-md-5 mb-4 text-start">
       <div class="d-flex align-items-center justify-content-between mb-3">
         <div class="d-flex align-items-center">
           <span class="step-number" style="background: rgba(16, 185, 129, 0.2); color: #34d399;">2</span>
-          <h4 class="mb-0 text-light fw-bold">Connect to Wi-Fi</h4>
+          <h4 class="mb-0 text-light fw-bold">Internet & Activation</h4>
         </div>
         <span class="badge badge-step rounded-pill px-3 py-1" style="background: rgba(16, 185, 129, 0.15); border-color: rgba(16, 185, 129, 0.35); color: #6ee7b7;">Step 2 of 2</span>
       </div>
 
-      <p class="text-secondary small mb-3">
-        The public firmware contains zero hardcoded credentials. After flashing, connect your Bipkin to your 2.4 GHz home Wi-Fi to sync internet time and unlock pet care and hatching.
+      <p class="text-secondary small mb-4">
+        Choose how you would like to connect your Bipkin. Both methods are 100% private and verified:
       </p>
 
-      <div class="p-3 bg-dark bg-opacity-50 rounded-3 text-start small border border-secondary border-opacity-25 mb-4">
-        <div class="fw-semibold text-warning mb-1">👉 Required Device Action:</div>
-        <p class="mb-0 text-light">
-          On your CYD screen, tap the bottom banner: <strong>"Tap here: WiFi USB setup"</strong>.<br>
-          The screen will change to <strong>"USB setup ready (60s)"</strong>. Then click <em>Connect & Save Wi-Fi</em> below.
-        </p>
-      </div>
+      <!-- Tabs for Methods -->
+      <ul class="nav nav-pills mb-4 gap-2" id="connTabs" role="tablist">
+        <li class="nav-item" role="presentation">
+          <button class="nav-link active" id="tab-usb-btn" data-bs-toggle="pill" data-bs-target="#tab-usb" type="button" role="tab">
+            ⚡ USB Internet Bridge (No Wi-Fi Needed)
+          </button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" id="tab-device-btn" data-bs-toggle="pill" data-bs-target="#tab-device" type="button" role="tab">
+            📱 On-Device Touch Screen
+          </button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" id="tab-web-btn" data-bs-toggle="pill" data-bs-target="#tab-web" type="button" role="tab">
+            📶 Browser Wi-Fi Entry
+          </button>
+        </li>
+      </ul>
 
-      <form id="wifiForm">
-        <div class="mb-3">
-          <label for="wifiSsid" class="form-label text-light fw-semibold small">2.4 GHz Wi-Fi Network Name (SSID):</label>
-          <input type="text" id="wifiSsid" class="form-control py-2" placeholder="e.g. MyHomeNetwork" required autocomplete="off" maxlength="32">
-        </div>
-
-        <div class="mb-4">
-          <label for="wifiPass" class="form-label text-light fw-semibold small">Wi-Fi Password:</label>
-          <input type="password" id="wifiPass" class="form-control py-2" placeholder="Leave empty for open networks" autocomplete="new-password" maxlength="63">
-          <div class="form-text text-secondary" style="font-size: 0.78rem;">
-            WPA2/WPA3 Personal (8–63 characters). Credentials are stored directly in your device's private NVS.
+      <div class="tab-content" id="connTabsContent">
+        <!-- Tab 1: USB Internet Bridge -->
+        <div class="tab-pane fade show active" id="tab-usb" role="tabpanel">
+          <div class="option-card p-4 mb-3">
+            <h5 class="text-light fw-bold mb-2">⚡ Instant Activation via USB</h5>
+            <p class="text-secondary small mb-3">
+              Leave your Bipkin plugged into your computer. Your browser will immediately synchronize trusted UTC internet time directly across the USB cable—<strong>no Wi-Fi passwords required anywhere!</strong>
+            </p>
+            <button id="btnUsbBridge" class="btn btn-action-primary">
+              ⚡ Sync Internet Time & Activate Bipkin
+            </button>
           </div>
         </div>
 
-        <div class="d-flex flex-wrap gap-2 align-items-center mb-3">
-          <button type="submit" id="wifiSaveBtn" class="btn btn-save-wifi">
-            📶 Connect & Save Wi-Fi
-          </button>
-          <button type="button" id="wifiForgetBtn" class="btn btn-outline-secondary btn-sm px-3 py-2">
-            Forget Device Wi-Fi
-          </button>
+        <!-- Tab 2: On-Device Touch Screen -->
+        <div class="tab-pane fade" id="tab-device" role="tabpanel">
+          <div class="option-card p-4 mb-3">
+            <h5 class="text-light fw-bold mb-2">📱 Air-Gapped Setup on the CYD Touchscreen</h5>
+            <p class="text-secondary small mb-3">
+              For complete privacy when playing untethered on a wall charger or battery:
+            </p>
+            <ol class="text-light small ps-3 mb-0">
+              <li class="mb-2">On your CYD screen, tap the bottom banner: <strong>"Tap here: WiFi Setup"</strong>.</li>
+              <li class="mb-2">Your Bipkin scans 2.4 GHz airwaves and displays nearby networks. <strong>Tap your home Wi-Fi name</strong>.</li>
+              <li class="mb-2">An on-screen virtual keyboard appears directly on the LCD. <strong>Type your Wi-Fi password with your finger</strong> and tap <em>Join</em>.</li>
+              <li>Your device verifies the connection, syncs internet time, and begins incubation! <em>Zero passwords ever enter your computer or browser.</em></li>
+            </ol>
+          </div>
         </div>
-      </form>
 
-      <!-- Live Setup Feedback Box -->
-      <div id="wifiStatusBox" class="status-box p-3 small mt-3">
+        <!-- Tab 3: Browser Wi-Fi Entry -->
+        <div class="tab-pane fade" id="tab-web" role="tabpanel">
+          <div class="option-card p-4 mb-3">
+            <h5 class="text-light fw-bold mb-2">📶 Provision Wi-Fi via Web Serial</h5>
+            <p class="text-secondary small mb-3">
+              If you prefer typing with your computer keyboard, tap <strong>"WiFi Setup"</strong> on your CYD screen, enter your Wi-Fi info below, and transmit it directly across the USB cable:
+            </p>
+            <form id="wifiForm">
+              <div class="mb-3">
+                <label for="wifiSsid" class="form-label text-light fw-semibold small">2.4 GHz Wi-Fi Name (SSID):</label>
+                <input type="text" id="wifiSsid" class="form-control py-2" placeholder="e.g. MyHomeNetwork" autocomplete="off" maxlength="32">
+              </div>
+
+              <div class="mb-3">
+                <label for="wifiPass" class="form-label text-light fw-semibold small">Wi-Fi Password:</label>
+                <input type="password" id="wifiPass" class="form-control py-2" placeholder="Leave empty for open networks" autocomplete="new-password" maxlength="63">
+              </div>
+
+              <div class="d-flex flex-wrap gap-2 align-items-center">
+                <button type="submit" id="wifiSaveBtn" class="btn btn-action-emerald">
+                  📶 Connect & Save Wi-Fi
+                </button>
+                <button type="button" id="wifiForgetBtn" class="btn btn-outline-secondary btn-sm px-3 py-2">
+                  Forget Device Wi-Fi
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <!-- Live Status Feedback Box -->
+      <div id="statusBox" class="status-box p-3 small mt-3">
         <div class="d-flex align-items-center">
-          <span id="wifiStatusIcon" class="me-2 fs-5">💡</span>
-          <div id="wifiStatusText" class="text-light">
-            Ready. Tap <strong>"WiFi USB setup"</strong> on your CYD screen, enter your Wi-Fi details, and click <strong>Connect & Save Wi-Fi</strong>.
+          <span id="statusIcon" class="me-2 fs-5">💡</span>
+          <div id="statusText" class="text-light">
+            Ready. Click <strong>Sync Internet Time & Activate</strong> above, or use the on-device touch keyboard on your CYD screen.
           </div>
         </div>
       </div>
@@ -245,9 +320,8 @@
       <div class="fw-semibold text-light mb-2">📋 Summary of First-Time Installation:</div>
       <ol class="ps-3 mb-0">
         <li class="mb-1"><strong>Flash:</strong> Click <em>Connect & Install</em> above and choose your board's USB port (CH340/CP2102).</li>
-        <li class="mb-1"><strong>Authorize:</strong> Once the egg appears, tap the bottom banner (<em>"Tap here: WiFi USB setup"</em>) on the LCD.</li>
-        <li class="mb-1"><strong>Provision:</strong> Enter your Wi-Fi network and click <em>Connect & Save Wi-Fi</em>.</li>
-        <li><strong>Play:</strong> Unplug and replug the USB cable. The Bipkin will connect to Wi-Fi, verify internet time, and begin incubating!</li>
+        <li class="mb-1"><strong>Connect:</strong> Either click <em>Sync Internet Time</em> via USB, or tap the CYD screen to enter Wi-Fi directly on the device.</li>
+        <li><strong>Play:</strong> Once time is verified, egg incubation begins, distress care alerts activate, and hatching unlocks!</li>
       </ol>
     </div>
 
@@ -265,6 +339,7 @@
 
   </div>
 
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <script>
     'use strict';
     const yearSpan = document.getElementById('year');
@@ -276,11 +351,11 @@
       flasherBtn.setAttribute('manifest', select.value);
     });
 
-    // --- Web Serial Wi-Fi Provisioning ---
     const enc = new TextEncoder();
-    const statusBox = document.getElementById('wifiStatusBox');
-    const statusIcon = document.getElementById('wifiStatusIcon');
-    const statusText = document.getElementById('wifiStatusText');
+    const statusBox = document.getElementById('statusBox');
+    const statusIcon = document.getElementById('statusIcon');
+    const statusText = document.getElementById('statusText');
+    const btnUsbBridge = document.getElementById('btnUsbBridge');
     const saveBtn = document.getElementById('wifiSaveBtn');
     const forgetBtn = document.getElementById('wifiForgetBtn');
     const ssidInput = document.getElementById('wifiSsid');
@@ -305,6 +380,75 @@
       statusText.innerHTML = message;
     }
 
+    // --- 1. USB Internet Bridge (Time Sync over USB) ---
+    btnUsbBridge.addEventListener('click', async () => {
+      if (!('serial' in navigator)) {
+        setStatus('Web Serial is not supported in this browser. Please use Chrome, Edge, or Opera on desktop.', 'error');
+        return;
+      }
+
+      btnUsbBridge.disabled = true;
+      setStatus('Please select your device port (CH340 / CP2102) in the browser popup...', 'busy');
+
+      let port = null, writer = null, reader = null;
+      try {
+        port = await navigator.serial.requestPort();
+        await port.open({ baudRate: 115200 });
+
+        setStatus('Connected! Syncing UTC internet time to your Bipkin...', 'busy');
+        writer = port.writable.getWriter();
+        reader = port.readable.getReader();
+
+        const epoch = Math.floor(Date.now() / 1000);
+        const command = `BRIDGE_TIME ${epoch}\n`;
+        await writer.write(enc.encode(command));
+        writer.releaseLock();
+        writer = null;
+
+        let buffer = '';
+        const startTime = Date.now();
+        let verified = false;
+
+        while (Date.now() - startTime < 6000) {
+          const readPromise = reader.read();
+          const timeoutPromise = new Promise((_, reject) => setTimeout(() => reject(new Error('timeout')), 1500));
+          let result;
+          try {
+            result = await Promise.race([readPromise, timeoutPromise]);
+          } catch (e) {
+            if (e.message === 'timeout') continue;
+            throw e;
+          }
+          if (result.done) break;
+          buffer += new TextDecoder().decode(result.value);
+
+          if (buffer.includes('[CLOCK] USB bridge verified')) {
+            verified = true;
+            break;
+          }
+        }
+
+        if (verified) {
+          setStatus('<strong>Internet time verified via USB!</strong> Your Bipkin clock is synced, care and hatching are unlocked, and incubation has started!', 'success');
+        } else {
+          setStatus('Connected, but device response timed out. Ensure the Bipkin is booted up to the egg screen.', 'warning');
+        }
+
+      } catch (err) {
+        if (err.name === 'NotFoundError') {
+          setStatus('Port selection was cancelled.', 'normal');
+        } else {
+          setStatus('Connection error: ' + (err.message || 'Port unavailable') + '. Ensure other serial apps or monitors are closed.', 'error');
+        }
+      } finally {
+        if (writer) { try { writer.releaseLock(); } catch {} }
+        if (reader) { try { await reader.cancel(); } catch {} try { reader.releaseLock(); } catch {} }
+        if (port) { try { await port.close(); } catch {} }
+        btnUsbBridge.disabled = false;
+      }
+    });
+
+    // --- 2. Web Serial Wi-Fi Provisioning ---
     function bytes(value) { return enc.encode(value); }
     function hex(array) { return Array.from(array, b => b.toString(16).padStart(2, '0')).join(''); }
     function valid(array, min, max) {
@@ -346,13 +490,11 @@
         writer = port.writable.getWriter();
         reader = port.readable.getReader();
 
-        // Send payload
         const payload = enc.encode(command);
         await writer.write(payload);
         writer.releaseLock();
         writer = null;
 
-        // Read response with timeout
         let buffer = '';
         const startTime = Date.now();
         let saved = false;
@@ -361,7 +503,6 @@
         while (Date.now() - startTime < 12000) {
           const readPromise = reader.read();
           const timeoutPromise = new Promise((_, reject) => setTimeout(() => reject(new Error('timeout')), 2000));
-          
           let result;
           try {
             result = await Promise.race([readPromise, timeoutPromise]);
@@ -369,7 +510,6 @@
             if (e.message === 'timeout') continue;
             throw e;
           }
-
           if (result.done) break;
           buffer += new TextDecoder().decode(result.value);
 
@@ -395,13 +535,13 @@
           setStatus('<strong>Wi-Fi successfully saved!</strong> Unplug and reconnect your Bipkin. Once it syncs internet time, your egg will begin incubating!', 'success');
           passInput.value = '';
         } else if (responseError === 'touch_required') {
-          setStatus('<strong>Physical setup touch required:</strong> Tap the <em>"Tap here: WiFi USB setup"</em> banner at the bottom of your CYD screen so it shows <em>"USB setup ready (60s)"</em>, then click Connect & Save Wi-Fi again.', 'warning');
+          setStatus('<strong>Physical setup touch required:</strong> Tap the <em>"WiFi Setup"</em> banner at the bottom of your CYD screen, then click Save Wi-Fi again.', 'warning');
         } else if (responseError === 'invalid_input') {
           setStatus('The device rejected the network credentials. Please check your SSID and password format.', 'error');
         } else if (responseError === 'storage_failed') {
           setStatus('Device storage error. Please try again.', 'error');
         } else {
-          setStatus('Device response timed out. Ensure the CYD screen displays <em>"USB setup ready (60s)"</em> before saving.', 'warning');
+          setStatus('Device response timed out. Ensure the CYD screen displays setup ready before saving.', 'warning');
         }
 
       } catch (err) {
