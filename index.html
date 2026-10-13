@@ -224,82 +224,45 @@
         Choose how you would like to connect your Bipkin. Both methods are 100% private and verified:
       </p>
 
-      <!-- Tabs for Methods -->
-      <ul class="nav nav-pills mb-4 gap-2" id="connTabs" role="tablist">
-        <li class="nav-item" role="presentation">
-          <button class="nav-link active" id="tab-usb-btn" data-bs-toggle="pill" data-bs-target="#tab-usb" type="button" role="tab">
-            ⚡ USB Internet Bridge (No Wi-Fi Needed)
-          </button>
-        </li>
-        <li class="nav-item" role="presentation">
-          <button class="nav-link" id="tab-device-btn" data-bs-toggle="pill" data-bs-target="#tab-device" type="button" role="tab">
-            📱 On-Device Touch Screen
-          </button>
-        </li>
-        <li class="nav-item" role="presentation">
-          <button class="nav-link" id="tab-web-btn" data-bs-toggle="pill" data-bs-target="#tab-web" type="button" role="tab">
-            📶 Browser Wi-Fi Entry
-          </button>
-        </li>
-      </ul>
-
-      <div class="tab-content" id="connTabsContent">
-        <!-- Tab 1: USB Internet Bridge -->
-        <div class="tab-pane fade show active" id="tab-usb" role="tabpanel">
-          <div class="option-card p-4 mb-3">
-            <h5 class="text-light fw-bold mb-2">⚡ Instant Activation via USB</h5>
-            <p class="text-secondary small mb-3">
-              Leave your Bipkin plugged into your computer. Your browser will immediately synchronize trusted UTC internet time directly across the USB cable—<strong>no Wi-Fi passwords required anywhere!</strong>
-            </p>
-            <button id="btnUsbBridge" class="btn btn-action-primary">
-              ⚡ Sync Internet Time & Activate Bipkin
-            </button>
+      <div class="row g-3 mb-4">
+        <!-- Option 1: USB Internet Bridge -->
+        <div class="col-12 col-lg-6">
+          <div class="option-card p-4 h-100 d-flex flex-column justify-content-between">
+            <div>
+              <div class="d-flex align-items-center mb-2">
+                <span class="fs-4 me-2">⚡</span>
+                <h5 class="text-light fw-bold mb-0">1-Click USB Sync</h5>
+              </div>
+              <span class="badge mb-3" style="background: rgba(16, 185, 129, 0.2); color: #34d399; font-size: 0.75rem;">Instant • No Wi-Fi Needed</span>
+              <p class="text-secondary small mb-3">
+                Leave your Bipkin plugged in. Click below to synchronize trusted internet time directly across the USB cable. <strong>Zero passwords needed anywhere.</strong>
+              </p>
+            </div>
+            <div>
+              <button id="btnUsbBridge" class="btn btn-action-primary w-100 py-2">
+                ⚡ Sync Internet Time & Activate
+              </button>
+            </div>
           </div>
         </div>
 
-        <!-- Tab 2: On-Device Touch Screen -->
-        <div class="tab-pane fade" id="tab-device" role="tabpanel">
-          <div class="option-card p-4 mb-3">
-            <h5 class="text-light fw-bold mb-2">📱 Air-Gapped Setup on the CYD Touchscreen</h5>
-            <p class="text-secondary small mb-3">
-              For complete privacy when playing untethered on a wall charger or battery:
+        <!-- Option 2: On-Device Touch Screen -->
+        <div class="col-12 col-lg-6">
+          <div class="option-card p-4 h-100">
+            <div class="d-flex align-items-center mb-2">
+              <span class="fs-4 me-2">📱</span>
+              <h5 class="text-light fw-bold mb-0">On-Device Touchscreen</h5>
+            </div>
+            <span class="badge mb-3" style="background: rgba(59, 130, 246, 0.2); color: #60a5fa; font-size: 0.75rem;">Air-Gapped • Untethered Play</span>
+            <p class="text-secondary small mb-2">
+              For playing on a wall adapter or battery without a computer:
             </p>
-            <ol class="text-light small ps-3 mb-0">
-              <li class="mb-2">On your CYD screen, tap the bottom banner: <strong>"Tap here: WiFi Setup"</strong>.</li>
-              <li class="mb-2">Your Bipkin scans 2.4 GHz airwaves and displays nearby networks. <strong>Tap your home Wi-Fi name</strong>.</li>
-              <li class="mb-2">An on-screen virtual keyboard appears directly on the LCD. <strong>Type your Wi-Fi password with your finger</strong> and tap <em>Join</em>.</li>
-              <li>Your device verifies the connection, syncs internet time, and begins incubation! <em>Zero passwords ever enter your computer or browser.</em></li>
+            <ol class="text-light small ps-3 mb-0" style="font-size: 0.82rem; line-height: 1.5;">
+              <li class="mb-1">Tap the <strong>"SET UP WI-FI"</strong> card on your CYD screen.</li>
+              <li class="mb-1">Select your 2.4 GHz Wi-Fi from the scanned list.</li>
+              <li class="mb-1">Type your password on the on-screen keyboard and tap <em>Join</em>.</li>
+              <li>Your device activates and begins incubation completely air-gapped!</li>
             </ol>
-          </div>
-        </div>
-
-        <!-- Tab 3: Browser Wi-Fi Entry -->
-        <div class="tab-pane fade" id="tab-web" role="tabpanel">
-          <div class="option-card p-4 mb-3">
-            <h5 class="text-light fw-bold mb-2">📶 Provision Wi-Fi via Web Serial</h5>
-            <p class="text-secondary small mb-3">
-              If you prefer typing with your computer keyboard, tap <strong>"WiFi Setup"</strong> on your CYD screen, enter your Wi-Fi info below, and transmit it directly across the USB cable:
-            </p>
-            <form id="wifiForm">
-              <div class="mb-3">
-                <label for="wifiSsid" class="form-label text-light fw-semibold small">2.4 GHz Wi-Fi Name (SSID):</label>
-                <input type="text" id="wifiSsid" class="form-control py-2" placeholder="e.g. MyHomeNetwork" autocomplete="off" maxlength="32">
-              </div>
-
-              <div class="mb-3">
-                <label for="wifiPass" class="form-label text-light fw-semibold small">Wi-Fi Password:</label>
-                <input type="password" id="wifiPass" class="form-control py-2" placeholder="Leave empty for open networks" autocomplete="new-password" maxlength="63">
-              </div>
-
-              <div class="d-flex flex-wrap gap-2 align-items-center">
-                <button type="submit" id="wifiSaveBtn" class="btn btn-action-emerald">
-                  📶 Connect & Save Wi-Fi
-                </button>
-                <button type="button" id="wifiForgetBtn" class="btn btn-outline-secondary btn-sm px-3 py-2">
-                  Forget Device Wi-Fi
-                </button>
-              </div>
-            </form>
           </div>
         </div>
       </div>
@@ -356,10 +319,6 @@
     const statusIcon = document.getElementById('statusIcon');
     const statusText = document.getElementById('statusText');
     const btnUsbBridge = document.getElementById('btnUsbBridge');
-    const saveBtn = document.getElementById('wifiSaveBtn');
-    const forgetBtn = document.getElementById('wifiForgetBtn');
-    const ssidInput = document.getElementById('wifiSsid');
-    const passInput = document.getElementById('wifiPass');
 
     function setStatus(message, type = 'normal') {
       statusBox.className = 'status-box p-3 small mt-3';
@@ -380,7 +339,7 @@
       statusText.innerHTML = message;
     }
 
-    // --- 1. USB Internet Bridge (Time Sync over USB) ---
+    // --- USB Internet Bridge (1-Click Time Sync over USB) ---
     btnUsbBridge.addEventListener('click', async () => {
       if (!('serial' in navigator)) {
         setStatus('Web Serial is not supported in this browser. Please use Chrome, Edge, or Opera on desktop.', 'error');
@@ -445,128 +404,6 @@
         if (reader) { try { await reader.cancel(); } catch {} try { reader.releaseLock(); } catch {} }
         if (port) { try { await port.close(); } catch {} }
         btnUsbBridge.disabled = false;
-      }
-    });
-
-    // --- 2. Web Serial Wi-Fi Provisioning ---
-    function bytes(value) { return enc.encode(value); }
-    function hex(array) { return Array.from(array, b => b.toString(16).padStart(2, '0')).join(''); }
-    function valid(array, min, max) {
-      return array.length >= min && array.length <= max && !array.some(v => v < 32 || v === 127);
-    }
-
-    async function provisionWifi(clear = false) {
-      if (!('serial' in navigator)) {
-        setStatus('Web Serial is not supported in this browser. Please use Chrome, Edge, or Opera on desktop.', 'error');
-        return;
-      }
-
-      const ssidBytes = bytes(ssidInput.value.trim());
-      const passBytes = bytes(passInput.value);
-
-      if (!clear) {
-        if (!valid(ssidBytes, 1, 32)) {
-          setStatus('Please enter a valid 2.4 GHz Wi-Fi network name (1–32 characters).', 'warning');
-          return;
-        }
-        if (passBytes.length > 0 && !valid(passBytes, 8, 63)) {
-          setStatus('Wi-Fi password must be between 8 and 63 characters (or left blank for open networks).', 'warning');
-          return;
-        }
-      }
-
-      const command = clear ? 'NETWORK_CLEAR\n' : `NETWORK ${hex(ssidBytes)} ${hex(passBytes)}\n`;
-
-      saveBtn.disabled = true;
-      forgetBtn.disabled = true;
-      setStatus('Please select your device port (CH340 / CP2102) in the browser popup...', 'busy');
-
-      let port = null, reader = null, writer = null;
-      try {
-        port = await navigator.serial.requestPort();
-        await port.open({ baudRate: 115200 });
-
-        setStatus('Connected to device! Transmitting network settings...', 'busy');
-        writer = port.writable.getWriter();
-        reader = port.readable.getReader();
-
-        const payload = enc.encode(command);
-        await writer.write(payload);
-        writer.releaseLock();
-        writer = null;
-
-        let buffer = '';
-        const startTime = Date.now();
-        let saved = false;
-        let responseError = null;
-
-        while (Date.now() - startTime < 12000) {
-          const readPromise = reader.read();
-          const timeoutPromise = new Promise((_, reject) => setTimeout(() => reject(new Error('timeout')), 2000));
-          let result;
-          try {
-            result = await Promise.race([readPromise, timeoutPromise]);
-          } catch (e) {
-            if (e.message === 'timeout') continue;
-            throw e;
-          }
-          if (result.done) break;
-          buffer += new TextDecoder().decode(result.value);
-
-          if (buffer.includes('[NETWORK] Saved; restart device')) {
-            saved = true;
-            break;
-          }
-          if (buffer.includes('[NETWORK] Physical setup touch required')) {
-            responseError = 'touch_required';
-            break;
-          }
-          if (buffer.includes('[NETWORK] Invalid network input')) {
-            responseError = 'invalid_input';
-            break;
-          }
-          if (buffer.includes('[NETWORK] Storage failed')) {
-            responseError = 'storage_failed';
-            break;
-          }
-        }
-
-        if (saved) {
-          setStatus('<strong>Wi-Fi successfully saved!</strong> Unplug and reconnect your Bipkin. Once it syncs internet time, your egg will begin incubating!', 'success');
-          passInput.value = '';
-        } else if (responseError === 'touch_required') {
-          setStatus('<strong>Physical setup touch required:</strong> Tap the <em>"WiFi Setup"</em> banner at the bottom of your CYD screen, then click Save Wi-Fi again.', 'warning');
-        } else if (responseError === 'invalid_input') {
-          setStatus('The device rejected the network credentials. Please check your SSID and password format.', 'error');
-        } else if (responseError === 'storage_failed') {
-          setStatus('Device storage error. Please try again.', 'error');
-        } else {
-          setStatus('Device response timed out. Ensure the CYD screen displays setup ready before saving.', 'warning');
-        }
-
-      } catch (err) {
-        if (err.name === 'NotFoundError') {
-          setStatus('Port selection was cancelled.', 'normal');
-        } else {
-          setStatus('Serial connection error: ' + (err.message || 'Port unavailable') + '. Make sure other serial apps or monitors are closed.', 'error');
-        }
-      } finally {
-        if (writer) { try { writer.releaseLock(); } catch {} }
-        if (reader) { try { await reader.cancel(); } catch {} try { reader.releaseLock(); } catch {} }
-        if (port) { try { await port.close(); } catch {} }
-        saveBtn.disabled = false;
-        forgetBtn.disabled = false;
-      }
-    }
-
-    document.getElementById('wifiForm').addEventListener('submit', (e) => {
-      e.preventDefault();
-      provisionWifi(false);
-    });
-
-    forgetBtn.addEventListener('click', () => {
-      if (confirm('Forget saved Wi-Fi on this device?')) {
-        provisionWifi(true);
       }
     });
   </script>
