@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Bipkin WiFi setup · talkth.ai</title>
+<style>body{font:18px system-ui;max-width:38rem;margin:3rem auto;padding:1rem;color:#254334;background:#faf7f2}label{display:block;margin:1rem 0}input{font:inherit;display:block;box-sizing:border-box;width:100%;padding:.6rem}button{font:inherit;padding:.65rem;margin:.3rem}#status{min-height:4rem}</style>
+<h1>Connect your Bipkin</h1>
+<p>Use Chrome or Edge on a computer. Connect the device with a data-capable USB cable, select its port, then physically tap <strong>WiFi USB setup</strong> at the bottom of its screen. Send the network within 60 seconds.</p>
+<p>Close any serial monitor or device mirror using the same port first. WiFi credentials stay on this device. Internet time verification is required before care and rewards unlock.</p>
+<button id="connect">Select USB device</button><button id="close" disabled>Cancel and close</button>
+<form id="form"><label>WiFi network name<input id="ssid" autocomplete="off" required></label>
+<label>WiFi password<input id="password" type="password" autocomplete="new-password"></label>
+<p>An empty password is only for an open network. Otherwise enter 8–63 UTF-8 bytes.</p>
+<button id="send" disabled>Save network</button><button id="clear" type="button" disabled>Forget device WiFi</button></form>
+<p id="status" role="status" aria-live="polite">Select a USB device to start.</p>
+<script>
+'use strict';
+const el=id=>document.getElementById(id), enc=new TextEncoder();
+let port=null, reader=null, writer=null, timeout=null, pending=false, generation=0;
+const say=text=>{el('status').textContent=text;};
+function inputsClear(){el('ssid').value='';el('password').value='';}
+function buttons(){el('connect').disabled=!!port;el('close').disabled=!port;el('send').disabled=!port||pending;el('clear').disabled=!port||pending;}
+async function close(){generation++;clearTimeout(timeout);pending=false;inputsClear();
+  if(reader){try{await reader.cancel();}catch{}try{reader.releaseLock();}catch{}reader=null;}
+  if(writer){try{writer.releaseLock();}catch{}writer=null;}
+  if(port){try{await port.close();}catch{}port=null;}buttons();}
+async function readLoop(token){let buffer='';try{
+  while(port&&token===generation){const result=await reader.read();if(result.done)break;
+    buffer+=new TextDecoder().decode(result.value);if(buffer.length>2048)buffer=buffer.slice(-512);
+    let pos;while((pos=buffer.indexOf('\n'))>=0){const line=buffer.slice(0,pos).trim();buffer=buffer.slice(pos+1);
+      // Only public protocol literals enter UI. Never display raw USB payloads.
+      if(!pending)continue;
+      if(line==='[NETWORK] Saved; restart device'){say('Saved. Unplug and reconnect the device; care unlocks after verified internet time.');await close();return;}
+      const errors={'[NETWORK] Physical setup touch required':'Physically tap the device setup strip, reconnect USB here and try again.',
+       '[NETWORK] Invalid network input':'Network input rejected. Check the byte limits and try again.',
+       '[NETWORK] Storage failed':'Device storage failed. Previous settings were preserved.',
+       '[NETWORK] Input rejected':'Input was malformed or too long. Previous settings were preserved.'};
+      if(errors[line]){say(errors[line]);await close();return;}
+    }
+  }
+  if(token===generation){say('USB disconnected. Reconnect and try again.');await close();}
+}catch{if(token===generation){say('USB connection failed. Reconnect and try again.');await close();}}}
+function bytes(value){return enc.encode(value);}
+function hex(array){return Array.from(array,b=>b.toString(16).padStart(2,'0')).join('');}
+function valid(array,min,max){return array.length>=min&&array.length<=max&&!array.some(v=>v<32||v===127);}
+async function submit(clear=false){if(!port||pending)return;
+  const ssid=bytes(el('ssid').value), password=bytes(el('password').value);
+  inputsClear();
+  if(!clear&&(!valid(ssid,1,32)||!(password.length===0||valid(password,8,63)))){say('Enter a 1–32 byte network name and an empty or 8–63 byte password. Control characters are unsupported.');ssid.fill(0);password.fill(0);return;}
+  let command=clear?'NETWORK_CLEAR\n':`NETWORK ${hex(ssid)} ${hex(password)}\n`;
+  ssid.fill(0);password.fill(0);pending=true;buttons();say('Waiting for the device. Ensure its physical setup window is open.');
+  timeout=setTimeout(async()=>{say('Device response timed out. Reconnect USB and open the physical setup window again.');await close();},12000);
+  try{const payload=bytes(command);command='';try{await writer.write(payload);}finally{payload.fill(0);}}
+  catch{say('Could not send settings. Reconnect USB and try again.');await close();}}
+el('connect').onclick=async()=>{try{
+  if(!window.isSecureContext||!('serial' in navigator)){say('Web Serial requires Chrome or Edge on localhost or HTTPS. See the setup guide.');return;}
+  port=await navigator.serial.requestPort();await port.open({baudRate:115200});
+  reader=port.readable.getReader();writer=port.writable.getWriter();buttons();say('Connected. Physically tap WiFi USB setup on the device, then save your network.');void readLoop(++generation);
+}catch{say('Port selection cancelled or port unavailable. Close other serial applications and try again.');await close();}};
+el('close').onclick=async()=>{say('Cancelled. USB closed.');await close();};
+el('form').onsubmit=event=>{event.preventDefault();void submit();};el('clear').onclick=()=>void submit(true);
+window.addEventListener('pagehide',()=>{inputsClear();void close();});
+if(!window.isSecureContext||!('serial' in navigator)){el('connect').disabled=true;say('Use Chrome or Edge on localhost or HTTPS for USB setup.');}
+</script></html>

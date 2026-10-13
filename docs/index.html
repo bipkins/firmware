@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Bipkins™ Web Flasher · talkth.ai</title>
+  <title>Bipkins™ Web Flasher & Setup · talkth.ai</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -14,6 +14,7 @@
       --bg-gradient: radial-gradient(circle at 50% 20%, #1e293b 0%, #0f172a 100%);
       --accent-gold: #f59e0b;
       --accent-cyan: #06b6d4;
+      --accent-emerald: #10b981;
     }
     body {
       font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
@@ -32,6 +33,14 @@
       background: linear-gradient(135deg, rgba(245, 158, 11, 0.2), rgba(6, 182, 212, 0.2));
       border: 1px solid rgba(245, 158, 11, 0.4);
       color: #fde68a;
+    }
+    .badge-step {
+      background: rgba(6, 182, 212, 0.15);
+      border: 1px solid rgba(6, 182, 212, 0.35);
+      color: #67e8f9;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
     }
     esp-web-install-button button {
       background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%) !important;
@@ -59,22 +68,86 @@
       font-weight: 700;
       font-size: 0.875rem;
       margin-right: 0.5rem;
+      flex-shrink: 0;
+    }
+    .form-control {
+      background-color: #0f172a !important;
+      border-color: #334155 !important;
+      color: #f8fafc !important;
+      border-radius: 0.65rem;
+    }
+    .form-control:focus {
+      border-color: #0284c7 !important;
+      box-shadow: 0 0 0 0.25rem rgba(2, 132, 199, 0.25) !important;
+    }
+    .form-control::placeholder {
+      color: #64748b;
+    }
+    .btn-save-wifi {
+      background: linear-gradient(135deg, #059669 0%, #047857 100%);
+      color: #ffffff;
+      font-weight: 600;
+      border: none;
+      border-radius: 0.75rem;
+      padding: 0.8rem 1.75rem;
+      box-shadow: 0 4px 14px rgba(5, 150, 105, 0.4);
+      transition: all 0.2s ease-in-out;
+    }
+    .btn-save-wifi:hover:not(:disabled) {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(5, 150, 105, 0.6);
+      color: #ffffff;
+    }
+    .btn-save-wifi:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+    .status-box {
+      border-radius: 0.75rem;
+      background: rgba(15, 23, 42, 0.8);
+      border: 1px solid rgba(51, 65, 85, 0.6);
+      transition: all 0.3s ease;
+    }
+    .status-box.success {
+      border-color: rgba(16, 185, 129, 0.5);
+      background: rgba(6, 78, 59, 0.3);
+    }
+    .status-box.warning {
+      border-color: rgba(245, 158, 11, 0.5);
+      background: rgba(120, 53, 15, 0.3);
+    }
+    .status-box.error {
+      border-color: rgba(239, 68, 68, 0.5);
+      background: rgba(127, 29, 29, 0.3);
     }
   </style>
 </head>
-<body class="d-flex align-items-center py-5">
-  <div class="container" style="max-width: 680px;">
+<body class="py-5">
+  <div class="container" style="max-width: 720px;">
     
     <div class="text-center mb-4">
       <span class="badge badge-brand rounded-pill px-3 py-2 mb-3 font-monospace">Bipkins™ Official Firmware</span>
-      <h1 class="display-5 fw-bold mb-2">Bipkins™ Web Flasher</h1>
+      <h1 class="display-5 fw-bold mb-2">Bipkins™ Web Flasher & Setup</h1>
       <p class="text-secondary lead fs-6">
-        Flash Bipkins companion firmware directly to your ESP32 CYD board via Web Serial.
+        Flash companion firmware and configure Wi-Fi directly in Chrome or Edge via Web Serial.
       </p>
     </div>
 
+    <!-- Step 1: Firmware Installation -->
     <div class="flasher-card p-4 p-md-5 mb-4 text-start">
-      <label for="deviceSelect" class="form-label text-light fw-semibold mb-2">Select Hardware Target:</label>
+      <div class="d-flex align-items-center justify-content-between mb-3">
+        <div class="d-flex align-items-center">
+          <span class="step-number">1</span>
+          <h4 class="mb-0 text-light fw-bold">Install Firmware</h4>
+        </div>
+        <span class="badge badge-step rounded-pill px-3 py-1">Step 1 of 2</span>
+      </div>
+
+      <p class="text-secondary small mb-3">
+        Connect your ESP32 CYD board with a USB-C data cable and install the latest verified Bipkins™ release.
+      </p>
+
+      <label for="deviceSelect" class="form-label text-light fw-semibold small mb-2">Select Hardware Target:</label>
       <select id="deviceSelect" class="form-select bg-dark text-light border-secondary mb-4 py-2">
         <option value="manifests/cyd-2432s028r.json" selected>
           ESP32-2432S028R (2.8" CYD Resistive Touch)
@@ -103,22 +176,6 @@
         </esp-web-install-button>
       </div>
 
-      <div class="p-3 bg-dark bg-opacity-50 rounded-3 text-start small border border-secondary border-opacity-25 mb-3">
-        <div class="fw-semibold text-light mb-2">📋 Quick Installation Guide:</div>
-        <div class="d-flex align-items-start mb-2">
-          <span class="step-number">1</span>
-          <span>Connect your ESP32 CYD board to your computer with a USB-C data cable.</span>
-        </div>
-        <div class="d-flex align-items-start mb-2">
-          <span class="step-number">2</span>
-          <span>Click <strong>Connect & Install Bipkins™</strong> above and select your device's USB COM / Serial port (CH340 / CP2102).</span>
-        </div>
-        <div class="d-flex align-items-start">
-          <span class="step-number">3</span>
-          <span>Follow the installer prompt. <em>To preserve your pet's name and NVS state during an upgrade, do <strong>not</strong> check "Erase device".</em></span>
-        </div>
-      </div>
-
       <div class="d-flex justify-content-between text-secondary" style="font-size: 0.78rem;">
         <span>Release: v1.0.0</span>
         <span>Target: ESP32 (No PSRAM, 2MB Flash)</span>
@@ -126,12 +183,80 @@
       </div>
     </div>
 
+    <!-- Step 2: Wi-Fi Setup -->
+    <div class="flasher-card p-4 p-md-5 mb-4 text-start">
+      <div class="d-flex align-items-center justify-content-between mb-3">
+        <div class="d-flex align-items-center">
+          <span class="step-number" style="background: rgba(16, 185, 129, 0.2); color: #34d399;">2</span>
+          <h4 class="mb-0 text-light fw-bold">Connect to Wi-Fi</h4>
+        </div>
+        <span class="badge badge-step rounded-pill px-3 py-1" style="background: rgba(16, 185, 129, 0.15); border-color: rgba(16, 185, 129, 0.35); color: #6ee7b7;">Step 2 of 2</span>
+      </div>
+
+      <p class="text-secondary small mb-3">
+        The public firmware contains zero hardcoded credentials. After flashing, connect your Bipkin to your 2.4 GHz home Wi-Fi to sync internet time and unlock pet care and hatching.
+      </p>
+
+      <div class="p-3 bg-dark bg-opacity-50 rounded-3 text-start small border border-secondary border-opacity-25 mb-4">
+        <div class="fw-semibold text-warning mb-1">👉 Required Device Action:</div>
+        <p class="mb-0 text-light">
+          On your CYD screen, tap the bottom banner: <strong>"Tap here: WiFi USB setup"</strong>.<br>
+          The screen will change to <strong>"USB setup ready (60s)"</strong>. Then click <em>Connect & Save Wi-Fi</em> below.
+        </p>
+      </div>
+
+      <form id="wifiForm">
+        <div class="mb-3">
+          <label for="wifiSsid" class="form-label text-light fw-semibold small">2.4 GHz Wi-Fi Network Name (SSID):</label>
+          <input type="text" id="wifiSsid" class="form-control py-2" placeholder="e.g. MyHomeNetwork" required autocomplete="off" maxlength="32">
+        </div>
+
+        <div class="mb-4">
+          <label for="wifiPass" class="form-label text-light fw-semibold small">Wi-Fi Password:</label>
+          <input type="password" id="wifiPass" class="form-control py-2" placeholder="Leave empty for open networks" autocomplete="new-password" maxlength="63">
+          <div class="form-text text-secondary" style="font-size: 0.78rem;">
+            WPA2/WPA3 Personal (8–63 characters). Credentials are stored directly in your device's private NVS.
+          </div>
+        </div>
+
+        <div class="d-flex flex-wrap gap-2 align-items-center mb-3">
+          <button type="submit" id="wifiSaveBtn" class="btn btn-save-wifi">
+            📶 Connect & Save Wi-Fi
+          </button>
+          <button type="button" id="wifiForgetBtn" class="btn btn-outline-secondary btn-sm px-3 py-2">
+            Forget Device Wi-Fi
+          </button>
+        </div>
+      </form>
+
+      <!-- Live Setup Feedback Box -->
+      <div id="wifiStatusBox" class="status-box p-3 small mt-3">
+        <div class="d-flex align-items-center">
+          <span id="wifiStatusIcon" class="me-2 fs-5">💡</span>
+          <div id="wifiStatusText" class="text-light">
+            Ready. Tap <strong>"WiFi USB setup"</strong> on your CYD screen, enter your Wi-Fi details, and click <strong>Connect & Save Wi-Fi</strong>.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Quick Reference -->
+    <div class="flasher-card p-4 mb-4 text-start small text-secondary">
+      <div class="fw-semibold text-light mb-2">📋 Summary of First-Time Installation:</div>
+      <ol class="ps-3 mb-0">
+        <li class="mb-1"><strong>Flash:</strong> Click <em>Connect & Install</em> above and choose your board's USB port (CH340/CP2102).</li>
+        <li class="mb-1"><strong>Authorize:</strong> Once the egg appears, tap the bottom banner (<em>"Tap here: WiFi USB setup"</em>) on the LCD.</li>
+        <li class="mb-1"><strong>Provision:</strong> Enter your Wi-Fi network and click <em>Connect & Save Wi-Fi</em>.</li>
+        <li><strong>Play:</strong> Unplug and replug the USB cable. The Bipkin will connect to Wi-Fi, verify internet time, and begin incubating!</li>
+      </ol>
+    </div>
+
     <div class="text-center text-secondary small">
       <p class="mb-1">
         Bipkins™ is powered by <a href="https://talkth.ai" class="text-info text-decoration-none" target="_blank" rel="noopener">talkth.ai</a>.
       </p>
       <p class="mb-1">
-        <strong>Bipkins™</strong> and <strong>Bipkin™</strong> are common-law trademarks of <a href="https://i-te.am">I-TEAM, INC</a>.
+        <strong>Bipkins™</strong> and <strong>Bipkin™</strong> are common-law trademarks of <a href="https://i-te.am" class="text-light text-decoration-none" target="_blank" rel="noopener">I-TEAM, INC</a>.
       </p>
       <p class="mb-0 text-muted">
         Copyright &copy; <span id="year">2026</span>. All rights reserved.
@@ -141,12 +266,168 @@
   </div>
 
   <script>
+    'use strict';
     const yearSpan = document.getElementById('year');
     if (yearSpan) yearSpan.textContent = new Date().getFullYear();
+
     const select = document.getElementById('deviceSelect');
     const flasherBtn = document.getElementById('flasherBtn');
     select.addEventListener('change', () => {
       flasherBtn.setAttribute('manifest', select.value);
+    });
+
+    // --- Web Serial Wi-Fi Provisioning ---
+    const enc = new TextEncoder();
+    const statusBox = document.getElementById('wifiStatusBox');
+    const statusIcon = document.getElementById('wifiStatusIcon');
+    const statusText = document.getElementById('wifiStatusText');
+    const saveBtn = document.getElementById('wifiSaveBtn');
+    const forgetBtn = document.getElementById('wifiForgetBtn');
+    const ssidInput = document.getElementById('wifiSsid');
+    const passInput = document.getElementById('wifiPass');
+
+    function setStatus(message, type = 'normal') {
+      statusBox.className = 'status-box p-3 small mt-3';
+      if (type === 'success') {
+        statusBox.classList.add('success');
+        statusIcon.textContent = '🎉';
+      } else if (type === 'warning') {
+        statusBox.classList.add('warning');
+        statusIcon.textContent = '⚠️';
+      } else if (type === 'error') {
+        statusBox.classList.add('error');
+        statusIcon.textContent = '❌';
+      } else if (type === 'busy') {
+        statusIcon.textContent = '⏳';
+      } else {
+        statusIcon.textContent = '💡';
+      }
+      statusText.innerHTML = message;
+    }
+
+    function bytes(value) { return enc.encode(value); }
+    function hex(array) { return Array.from(array, b => b.toString(16).padStart(2, '0')).join(''); }
+    function valid(array, min, max) {
+      return array.length >= min && array.length <= max && !array.some(v => v < 32 || v === 127);
+    }
+
+    async function provisionWifi(clear = false) {
+      if (!('serial' in navigator)) {
+        setStatus('Web Serial is not supported in this browser. Please use Chrome, Edge, or Opera on desktop.', 'error');
+        return;
+      }
+
+      const ssidBytes = bytes(ssidInput.value.trim());
+      const passBytes = bytes(passInput.value);
+
+      if (!clear) {
+        if (!valid(ssidBytes, 1, 32)) {
+          setStatus('Please enter a valid 2.4 GHz Wi-Fi network name (1–32 characters).', 'warning');
+          return;
+        }
+        if (passBytes.length > 0 && !valid(passBytes, 8, 63)) {
+          setStatus('Wi-Fi password must be between 8 and 63 characters (or left blank for open networks).', 'warning');
+          return;
+        }
+      }
+
+      const command = clear ? 'NETWORK_CLEAR\n' : `NETWORK ${hex(ssidBytes)} ${hex(passBytes)}\n`;
+
+      saveBtn.disabled = true;
+      forgetBtn.disabled = true;
+      setStatus('Please select your device port (CH340 / CP2102) in the browser popup...', 'busy');
+
+      let port = null, reader = null, writer = null;
+      try {
+        port = await navigator.serial.requestPort();
+        await port.open({ baudRate: 115200 });
+
+        setStatus('Connected to device! Transmitting network settings...', 'busy');
+        writer = port.writable.getWriter();
+        reader = port.readable.getReader();
+
+        // Send payload
+        const payload = enc.encode(command);
+        await writer.write(payload);
+        writer.releaseLock();
+        writer = null;
+
+        // Read response with timeout
+        let buffer = '';
+        const startTime = Date.now();
+        let saved = false;
+        let responseError = null;
+
+        while (Date.now() - startTime < 12000) {
+          const readPromise = reader.read();
+          const timeoutPromise = new Promise((_, reject) => setTimeout(() => reject(new Error('timeout')), 2000));
+          
+          let result;
+          try {
+            result = await Promise.race([readPromise, timeoutPromise]);
+          } catch (e) {
+            if (e.message === 'timeout') continue;
+            throw e;
+          }
+
+          if (result.done) break;
+          buffer += new TextDecoder().decode(result.value);
+
+          if (buffer.includes('[NETWORK] Saved; restart device')) {
+            saved = true;
+            break;
+          }
+          if (buffer.includes('[NETWORK] Physical setup touch required')) {
+            responseError = 'touch_required';
+            break;
+          }
+          if (buffer.includes('[NETWORK] Invalid network input')) {
+            responseError = 'invalid_input';
+            break;
+          }
+          if (buffer.includes('[NETWORK] Storage failed')) {
+            responseError = 'storage_failed';
+            break;
+          }
+        }
+
+        if (saved) {
+          setStatus('<strong>Wi-Fi successfully saved!</strong> Unplug and reconnect your Bipkin. Once it syncs internet time, your egg will begin incubating!', 'success');
+          passInput.value = '';
+        } else if (responseError === 'touch_required') {
+          setStatus('<strong>Physical setup touch required:</strong> Tap the <em>"Tap here: WiFi USB setup"</em> banner at the bottom of your CYD screen so it shows <em>"USB setup ready (60s)"</em>, then click Connect & Save Wi-Fi again.', 'warning');
+        } else if (responseError === 'invalid_input') {
+          setStatus('The device rejected the network credentials. Please check your SSID and password format.', 'error');
+        } else if (responseError === 'storage_failed') {
+          setStatus('Device storage error. Please try again.', 'error');
+        } else {
+          setStatus('Device response timed out. Ensure the CYD screen displays <em>"USB setup ready (60s)"</em> before saving.', 'warning');
+        }
+
+      } catch (err) {
+        if (err.name === 'NotFoundError') {
+          setStatus('Port selection was cancelled.', 'normal');
+        } else {
+          setStatus('Serial connection error: ' + (err.message || 'Port unavailable') + '. Make sure other serial apps or monitors are closed.', 'error');
+        }
+      } finally {
+        if (writer) { try { writer.releaseLock(); } catch {} }
+        if (reader) { try { await reader.cancel(); } catch {} try { reader.releaseLock(); } catch {} }
+        if (port) { try { await port.close(); } catch {} }
+        saveBtn.disabled = false;
+        forgetBtn.disabled = false;
+      }
+    }
+
+    document.getElementById('wifiForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+      provisionWifi(false);
+    });
+
+    forgetBtn.addEventListener('click', () => {
+      if (confirm('Forget saved Wi-Fi on this device?')) {
+        provisionWifi(true);
+      }
     });
   </script>
 </body>
