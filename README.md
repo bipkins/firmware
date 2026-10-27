@@ -8,26 +8,34 @@ This repository contains clean, credential-free binaries for first-time installa
 
 ---
 
-## 📦 Release Artifacts (v1.0.0)
+## 📦 Release Artifacts (v1.1.0)
+
+**What's new in v1.1.0**
+- **Reliable pairing:** devices now register their pairing code with talkth.ai (v1.0.0 could run out of memory and show a code the server didn't know). The screen shows "Connecting…" until the server confirms a code.
+- **Unique device IDs:** each board uses its own ID (`cyd-xxxxxx`) instead of the shared `cyd-000000`. Already-paired boards keep their ID.
+- **Secure device connection:** the device talks to `device.talkth.ai` and trusts only the ISRG Root X1/X2 certificates (faster handshake, no insecure TLS).
+- **Unique pet looks and outfits:** every hatched Bipkin gets its own appearance, and wardrobe items bought on talkth.ai show on the device.
+- **Screen sleep:** the backlight turns off after 5 minutes idle; a touch wakes it.
+
+Upgrading from v1.0.0 with the **Application Only** image keeps your pet, coins and Wi-Fi (partition table and bootloader are unchanged).
 
 | File | Offset | Description | Size |
 |---|---|---|---|
-| `bipkins-cyd-1.0.0-full.bin` | `0x0` | **Full Flash Image**: Complete flash image for brand new boards | ~1.4 MB |
-| `bipkins-cyd-1.0.0-app.bin` | `0x10000` | **Application Only**: Upgrade image that **preserves existing pet NVS state** | ~1.4 MB |
-| `bipkins-cyd-1.0.0-bootloader.bin` | `0x1000` | ESP32 2nd stage bootloader | ~25 KB |
-| `bipkins-cyd-1.0.0-partitions.bin` | `0x8000` | Custom 2 MB partition table | ~3 KB |
-| `bipkins-cyd-1.0.0-boot_app0.bin` | `0xe000` | ESP32 OTA / boot data structure | ~8 KB |
-| `manifest.json` | - | Build metadata, toolchain versions, and component hashes | - |
-| `SHA256SUMS` | - | Cryptographic SHA-256 checksums of all release binaries | - |
+| `bipkins-cyd-1.1.0-full.bin` | `0x0` | **Full Flash Image**: Complete flash image for brand new boards (erases saved pets and Wi-Fi) | ~1.4 MB |
+| `bipkins-cyd-1.1.0-app.bin` | `0x10000` | **Application Only**: Upgrade image that **preserves existing pet NVS state** | ~1.3 MB |
+| `bipkins-cyd-1.1.0-bootloader.bin` | `0x1000` | ESP32 2nd stage bootloader (unchanged from v1.0.0) | ~24 KB |
+| `bipkins-cyd-1.1.0-partitions.bin` | `0x8000` | Custom 2 MB partition table (unchanged from v1.0.0) | ~3 KB |
+| `bipkins-cyd-1.1.0-boot_app0.bin` | `0xe000` | ESP32 OTA / boot data structure (unchanged from v1.0.0) | ~8 KB |
+| `manifest.json` | - | Web Flasher manifest (build metadata: `releases/1.1.0/manifest.json`) | - |
+| `SHA256SUMS` | - | SHA-256 checksums of the v1.1.0 binaries (v1.0.0: `releases/1.0.0/SHA256SUMS`) | - |
 
 ### Checksums
-
 ```text
-49d4847bacf51592a1cd12cc1ee069db5ac5b8726e63741be3ffb0c9d6e679cb  bipkins-cyd-1.0.0-app.bin
-f94c5d786a7a8fab06ac5d10e33bf37711a6697636dc037559ea19cc410a17f0  bipkins-cyd-1.0.0-boot_app0.bin
-ed87b6c2a1a808d202ae35d82fc30f32233bb5afdaeb19cbb685a7612c4e2171  bipkins-cyd-1.0.0-bootloader.bin
-dcc460bcf4db87aad6ddc64b8448493def25aeb05de195df9d1de86dfdb08800  bipkins-cyd-1.0.0-full.bin
-b04ba681eca2feb3b65cb564a6e7961c3caf9beecf21445b0fc2ad087c53a550  bipkins-cyd-1.0.0-partitions.bin
+7043f04fda281f1a134c69124bb330312ca0a2b2cc75acf5470c2544e6cd2c15  bipkins-cyd-1.1.0-app.bin
+f94c5d786a7a8fab06ac5d10e33bf37711a6697636dc037559ea19cc410a17f0  bipkins-cyd-1.1.0-boot_app0.bin
+ed87b6c2a1a808d202ae35d82fc30f32233bb5afdaeb19cbb685a7612c4e2171  bipkins-cyd-1.1.0-bootloader.bin
+752135f429cbb0b291751e13449df53eaa1ed42694fae95bd835dd3a5a42ab5b  bipkins-cyd-1.1.0-full.bin
+b04ba681eca2feb3b65cb564a6e7961c3caf9beecf21445b0fc2ad087c53a550  bipkins-cyd-1.1.0-partitions.bin
 ```
 
 ---
@@ -61,17 +69,17 @@ If you are using Chrome, Edge, or Opera on desktop, you can flash your Bipkin di
 ```bash
 esptool.py --chip esp32 --port /dev/ttyUSB0 --baud 921600 \
   write_flash -z --flash_mode dio --flash_freq 80m --flash_size 2MB \
-  0x0 bipkins-cyd-1.0.0-full.bin
+  0x0 bipkins-cyd-1.1.0-full.bin
 ```
 
 Alternatively, flashing individual components:
 ```bash
 esptool.py --chip esp32 --port /dev/ttyUSB0 --baud 921600 \
   write_flash -z --flash_mode dio --flash_freq 80m --flash_size 2MB \
-  0x1000  bipkins-cyd-1.0.0-bootloader.bin \
-  0x8000  bipkins-cyd-1.0.0-partitions.bin \
-  0xe000  bipkins-cyd-1.0.0-boot_app0.bin \
-  0x10000 bipkins-cyd-1.0.0-app.bin
+  0x1000  bipkins-cyd-1.1.0-bootloader.bin \
+  0x8000  bipkins-cyd-1.1.0-partitions.bin \
+  0xe000  bipkins-cyd-1.1.0-boot_app0.bin \
+  0x10000 bipkins-cyd-1.1.0-app.bin
 ```
 
 ---
@@ -83,7 +91,7 @@ esptool.py --chip esp32 --port /dev/ttyUSB0 --baud 921600 \
 ```bash
 esptool.py --chip esp32 --port /dev/ttyUSB0 --baud 921600 \
   write_flash -z --flash_mode dio --flash_freq 80m --flash_size 2MB \
-  0x10000 bipkins-cyd-1.0.0-app.bin
+  0x10000 bipkins-cyd-1.1.0-app.bin
 ```
 
 ---
