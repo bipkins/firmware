@@ -8,34 +8,34 @@ This repository contains clean, credential-free binaries for first-time installa
 
 ---
 
-## 📦 Release Artifacts (v1.1.0)
+## 📦 Release Artifacts (v1.2.0)
 
-**What's new in v1.1.0**
-- **Reliable pairing:** devices now register their pairing code with talkth.ai (v1.0.0 could run out of memory and show a code the server didn't know). The screen shows "Connecting…" until the server confirms a code.
-- **Unique device IDs:** each board uses its own ID (`cyd-xxxxxx`) instead of the shared `cyd-000000`. Already-paired boards keep their ID.
-- **Secure device connection:** the device talks to `device.talkth.ai` and trusts only the ISRG Root X1/X2 certificates (faster handshake, no insecure TLS).
-- **Unique pet looks and outfits:** every hatched Bipkin gets its own appearance, and wardrobe items bought on talkth.ai show on the device.
-- **Screen sleep:** the backlight turns off after 5 minutes idle; a touch wakes it.
+**What's new in v1.2.0**
+- **Cloud sync:** your Bipkin stays in step with talkth.ai. Care, coins and pet changes sync both ways, and the website shows when the device was last online.
+- **Sleep hours:** your pet sleeps through the night. The default is 21:00–07:00 in your local time, and you can change it on talkth.ai. If you wake your pet during sleep hours, it goes back to sleep after 10 minutes idle.
+- **Re-pairing keeps your pet:** pairing again (or adopting an egg) keeps the same pet and species. A device that is forgotten on talkth.ai and paired again no longer drops back to "unlinked".
+- **Day-scale needs:** hunger and joy fall over hours rather than minutes, and more slowly while the pet sleeps.
+- **New build system:** the firmware is now built with ESP-IDF 5.5. That is why the bootloader and the boot data part (`ota_data_initial`, which replaces `boot_app0`) are new in this release. The partition table has not changed.
 
-Upgrading from v1.0.0 with the **Application Only** image keeps your pet, coins and Wi-Fi (partition table and bootloader are unchanged).
+Upgrading from v1.1.0 keeps your pet, coins, Wi-Fi and pairing, whether you flash only the **Application** image or all four parts without erasing. In the Web Flasher, answer **no** when it asks to erase the device.
 
 | File | Offset | Description | Size |
 |---|---|---|---|
-| `bipkins-cyd-1.1.0-full.bin` | `0x0` | **Full Flash Image**: Complete flash image for brand new boards (erases saved pets and Wi-Fi) | ~1.4 MB |
-| `bipkins-cyd-1.1.0-app.bin` | `0x10000` | **Application Only**: Upgrade image that **preserves existing pet NVS state** | ~1.3 MB |
-| `bipkins-cyd-1.1.0-bootloader.bin` | `0x1000` | ESP32 2nd stage bootloader (unchanged from v1.0.0) | ~24 KB |
-| `bipkins-cyd-1.1.0-partitions.bin` | `0x8000` | Custom 2 MB partition table (unchanged from v1.0.0) | ~3 KB |
-| `bipkins-cyd-1.1.0-boot_app0.bin` | `0xe000` | ESP32 OTA / boot data structure (unchanged from v1.0.0) | ~8 KB |
-| `manifest.json` | - | Web Flasher manifest (build metadata: `releases/1.1.0/manifest.json`) | - |
-| `SHA256SUMS` | - | SHA-256 checksums of the v1.1.0 binaries (v1.0.0: `releases/1.0.0/SHA256SUMS`) | - |
+| `bipkins-cyd-1.2.0-full.bin` | `0x0` | **Full Flash Image**: complete flash image for brand new boards (erases saved pets and Wi-Fi) | ~1.4 MB |
+| `bipkins-cyd-1.2.0-app.bin` | `0x10000` | **Application Only**: upgrade image that **preserves existing pet NVS state** | ~1.3 MB |
+| `bipkins-cyd-1.2.0-bootloader.bin` | `0x1000` | ESP32 2nd stage bootloader (ESP-IDF 5.5) | ~27 KB |
+| `bipkins-cyd-1.2.0-partitions.bin` | `0x8000` | Custom 2 MB partition table (unchanged since v1.0.0) | ~3 KB |
+| `bipkins-cyd-1.2.0-ota_data_initial.bin` | `0xe000` | OTA boot data (blank; boots the app at `0x10000`) | ~8 KB |
+| `manifest.json` | - | Web Flasher manifest (build metadata: `releases/1.2.0/manifest.json`) | - |
+| `SHA256SUMS` | - | SHA-256 checksums of the v1.2.0 binaries (earlier: `releases/<version>/SHA256SUMS`) | - |
 
 ### Checksums
 ```text
-7043f04fda281f1a134c69124bb330312ca0a2b2cc75acf5470c2544e6cd2c15  bipkins-cyd-1.1.0-app.bin
-f94c5d786a7a8fab06ac5d10e33bf37711a6697636dc037559ea19cc410a17f0  bipkins-cyd-1.1.0-boot_app0.bin
-ed87b6c2a1a808d202ae35d82fc30f32233bb5afdaeb19cbb685a7612c4e2171  bipkins-cyd-1.1.0-bootloader.bin
-752135f429cbb0b291751e13449df53eaa1ed42694fae95bd835dd3a5a42ab5b  bipkins-cyd-1.1.0-full.bin
-b04ba681eca2feb3b65cb564a6e7961c3caf9beecf21445b0fc2ad087c53a550  bipkins-cyd-1.1.0-partitions.bin
+144bd474119cdb657695a3b9fc051addd06af4fd473b1dacffdf4317fab3e144  bipkins-cyd-1.2.0-app.bin
+4b6bdecb06a93e3c78e8cb077b61c62e799b94c5af6335fb64f718f4ed0b0be6  bipkins-cyd-1.2.0-bootloader.bin
+c4ca0267ffc7daa5af66c3d5b2942b55ad68a29351dba4bc98a99c4d60489bdf  bipkins-cyd-1.2.0-full.bin
+7d2c7ac4888bfd75cd5f56e8d61f69595121183afc81556c876732fd3782c62f  bipkins-cyd-1.2.0-ota_data_initial.bin
+b04ba681eca2feb3b65cb564a6e7961c3caf9beecf21445b0fc2ad087c53a550  bipkins-cyd-1.2.0-partitions.bin
 ```
 
 ---
@@ -69,17 +69,17 @@ If you are using Chrome, Edge, or Opera on desktop, you can flash your Bipkin di
 ```bash
 esptool.py --chip esp32 --port /dev/ttyUSB0 --baud 921600 \
   write_flash -z --flash_mode dio --flash_freq 80m --flash_size 2MB \
-  0x0 bipkins-cyd-1.1.0-full.bin
+  0x0 bipkins-cyd-1.2.0-full.bin
 ```
 
 Alternatively, flashing individual components:
 ```bash
 esptool.py --chip esp32 --port /dev/ttyUSB0 --baud 921600 \
   write_flash -z --flash_mode dio --flash_freq 80m --flash_size 2MB \
-  0x1000  bipkins-cyd-1.1.0-bootloader.bin \
-  0x8000  bipkins-cyd-1.1.0-partitions.bin \
-  0xe000  bipkins-cyd-1.1.0-boot_app0.bin \
-  0x10000 bipkins-cyd-1.1.0-app.bin
+  0x1000  bipkins-cyd-1.2.0-bootloader.bin \
+  0x8000  bipkins-cyd-1.2.0-partitions.bin \
+  0xe000  bipkins-cyd-1.2.0-ota_data_initial.bin \
+  0x10000 bipkins-cyd-1.2.0-app.bin
 ```
 
 ---
@@ -91,7 +91,7 @@ esptool.py --chip esp32 --port /dev/ttyUSB0 --baud 921600 \
 ```bash
 esptool.py --chip esp32 --port /dev/ttyUSB0 --baud 921600 \
   write_flash -z --flash_mode dio --flash_freq 80m --flash_size 2MB \
-  0x10000 bipkins-cyd-1.1.0-app.bin
+  0x10000 bipkins-cyd-1.2.0-app.bin
 ```
 
 ---
