@@ -8,34 +8,33 @@ This repository contains clean, credential-free binaries for first-time installa
 
 ---
 
-## 📦 Release Artifacts (v1.2.0)
+## 📦 Release Artifacts (v1.3.0)
 
-**What's new in v1.2.0**
-- **Cloud sync:** your Bipkin stays in step with talkth.ai. Care, coins and pet changes sync both ways, and the website shows when the device was last online.
-- **Sleep hours:** your pet sleeps through the night. The default is 21:00–07:00 in your local time, and you can change it on talkth.ai. If you wake your pet during sleep hours, it goes back to sleep after 10 minutes idle.
-- **Re-pairing keeps your pet:** pairing again (or adopting an egg) keeps the same pet and species. A device that is forgotten on talkth.ai and paired again no longer drops back to "unlinked".
-- **Day-scale needs:** hunger and joy fall over hours rather than minutes, and more slowly while the pet sleeps.
-- **New build system:** the firmware is now built with ESP-IDF 5.5. That is why the bootloader and the boot data part (`ota_data_initial`, which replaces `boot_app0`) are new in this release. The partition table has not changed.
+**What's new in v1.3.0**
+- **Your Bipkin looks the same everywhere:** the device now draws the same painted hair, hats, clothes and accessories as talkth.ai. It downloads the art for what your pet is wearing, so new items from the store appear without a firmware update.
+- **Looks to keep on the device:** on talkth.ai, choose up to 4 looks to keep on the device ("Keep on device"). Tap the LOOK strip on the device to switch between them, even offline. New items still need talkth.ai.
+- **Safer pet switching:** switching pets on talkth.ai no longer risks one pet overwriting another if the device loses power at the wrong moment.
+- **Cleaner edges:** sprite edges no longer have a blue fringe.
 
-Upgrading from v1.1.0 keeps your pet, coins, Wi-Fi and pairing, whether you flash only the **Application** image or all four parts without erasing. In the Web Flasher, answer **no** when it asks to erase the device.
+Upgrading from v1.2.0 keeps your pet, coins, Wi-Fi and pairing. In the Web Flasher, answer **no** when it asks to erase the device. The partition table renames the unused 64 KB crash-dump area at `0x1F0000` to the art cache. Every offset is unchanged, and an **Application Only** upgrade also works, because the firmware accepts the old name.
 
 | File | Offset | Description | Size |
 |---|---|---|---|
-| `bipkins-cyd-1.2.0-full.bin` | `0x0` | **Full Flash Image**: complete flash image for brand new boards (erases saved pets and Wi-Fi) | ~1.4 MB |
-| `bipkins-cyd-1.2.0-app.bin` | `0x10000` | **Application Only**: upgrade image that **preserves existing pet NVS state** | ~1.3 MB |
-| `bipkins-cyd-1.2.0-bootloader.bin` | `0x1000` | ESP32 2nd stage bootloader (ESP-IDF 5.5) | ~27 KB |
-| `bipkins-cyd-1.2.0-partitions.bin` | `0x8000` | Custom 2 MB partition table (unchanged since v1.0.0) | ~3 KB |
-| `bipkins-cyd-1.2.0-ota_data_initial.bin` | `0xe000` | OTA boot data (blank; boots the app at `0x10000`) | ~8 KB |
-| `manifest.json` | - | Web Flasher manifest (build metadata: `releases/1.2.0/manifest.json`) | - |
-| `SHA256SUMS` | - | SHA-256 checksums of the v1.2.0 binaries (earlier: `releases/<version>/SHA256SUMS`) | - |
+| `bipkins-cyd-1.3.0-full.bin` | `0x0` | **Full Flash Image**: complete flash image for brand new boards (erases saved pets and Wi-Fi) | ~1.4 MB |
+| `bipkins-cyd-1.3.0-app.bin` | `0x10000` | **Application Only**: upgrade image that **preserves existing pet NVS state** | ~1.4 MB |
+| `bipkins-cyd-1.3.0-bootloader.bin` | `0x1000` | ESP32 2nd stage bootloader (ESP-IDF 5.5, unchanged from v1.2.0) | ~27 KB |
+| `bipkins-cyd-1.3.0-partitions.bin` | `0x8000` | 2 MB partition table (art cache at `0x1F0000`, all offsets unchanged) | ~3 KB |
+| `bipkins-cyd-1.3.0-ota_data_initial.bin` | `0xe000` | OTA boot data (blank; boots the app at `0x10000`) | ~8 KB |
+| `manifest.json` | - | Web Flasher manifest (build metadata: `releases/1.3.0/manifest.json`) | - |
+| `SHA256SUMS` | - | SHA-256 checksums of the v1.3.0 binaries (earlier: `releases/<version>/SHA256SUMS`) | - |
 
 ### Checksums
 ```text
-144bd474119cdb657695a3b9fc051addd06af4fd473b1dacffdf4317fab3e144  bipkins-cyd-1.2.0-app.bin
-4b6bdecb06a93e3c78e8cb077b61c62e799b94c5af6335fb64f718f4ed0b0be6  bipkins-cyd-1.2.0-bootloader.bin
-c4ca0267ffc7daa5af66c3d5b2942b55ad68a29351dba4bc98a99c4d60489bdf  bipkins-cyd-1.2.0-full.bin
-7d2c7ac4888bfd75cd5f56e8d61f69595121183afc81556c876732fd3782c62f  bipkins-cyd-1.2.0-ota_data_initial.bin
-b04ba681eca2feb3b65cb564a6e7961c3caf9beecf21445b0fc2ad087c53a550  bipkins-cyd-1.2.0-partitions.bin
+0545b9b3991f721b4aeaa24e16833dce6a70a16be232b862d55d1df798c7e9a4  bipkins-cyd-1.3.0-app.bin
+4b6bdecb06a93e3c78e8cb077b61c62e799b94c5af6335fb64f718f4ed0b0be6  bipkins-cyd-1.3.0-bootloader.bin
+01b2e17235609d98f69f95cec6228d5a661de5d32c2f59e8acd7d7930e505e55  bipkins-cyd-1.3.0-full.bin
+7d2c7ac4888bfd75cd5f56e8d61f69595121183afc81556c876732fd3782c62f  bipkins-cyd-1.3.0-ota_data_initial.bin
+2cdf91f63452a1305bf94210b90bea5a5477c38604fb25a92c26704ba454d8b1  bipkins-cyd-1.3.0-partitions.bin
 ```
 
 ---
@@ -69,17 +68,17 @@ If you are using Chrome, Edge, or Opera on desktop, you can flash your Bipkin di
 ```bash
 esptool.py --chip esp32 --port /dev/ttyUSB0 --baud 921600 \
   write_flash -z --flash_mode dio --flash_freq 80m --flash_size 2MB \
-  0x0 bipkins-cyd-1.2.0-full.bin
+  0x0 bipkins-cyd-1.3.0-full.bin
 ```
 
 Alternatively, flashing individual components:
 ```bash
 esptool.py --chip esp32 --port /dev/ttyUSB0 --baud 921600 \
   write_flash -z --flash_mode dio --flash_freq 80m --flash_size 2MB \
-  0x1000  bipkins-cyd-1.2.0-bootloader.bin \
-  0x8000  bipkins-cyd-1.2.0-partitions.bin \
-  0xe000  bipkins-cyd-1.2.0-ota_data_initial.bin \
-  0x10000 bipkins-cyd-1.2.0-app.bin
+  0x1000  bipkins-cyd-1.3.0-bootloader.bin \
+  0x8000  bipkins-cyd-1.3.0-partitions.bin \
+  0xe000  bipkins-cyd-1.3.0-ota_data_initial.bin \
+  0x10000 bipkins-cyd-1.3.0-app.bin
 ```
 
 ---
@@ -91,7 +90,7 @@ esptool.py --chip esp32 --port /dev/ttyUSB0 --baud 921600 \
 ```bash
 esptool.py --chip esp32 --port /dev/ttyUSB0 --baud 921600 \
   write_flash -z --flash_mode dio --flash_freq 80m --flash_size 2MB \
-  0x10000 bipkins-cyd-1.2.0-app.bin
+  0x10000 bipkins-cyd-1.3.0-app.bin
 ```
 
 ---
