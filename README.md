@@ -15,6 +15,9 @@ This repository contains clean, credential-free binaries for first-time installa
 - **Faster replies to the website:** while the Mirror page is open, the device checks in every 5 seconds, so care, pet switches and other website actions arrive in about 3–7 seconds instead of up to 15.
 - **It tells you why:** when your Bipkin can't do something (too full, asleep, needs a rest), the website shows the reason.
 - **Care shows up sooner:** care done on the device reaches the website within a moment.
+- **Safer setup hotspot:** each device now makes its own random hotspot password, shown on its screen, instead of one that could be worked out from the device's name.
+- **Unguessable device IDs for new boards:** a newly set up device gets an ID nobody can predict. Devices that are already paired keep their ID.
+- **The full store on the device:** every hat, pair of sunglasses, halo and other wearable item now shows on every species (133 pieces of art), and the forest pet's eyes are cleaner.
 
 Upgrading from v1.3.0 keeps your pet, coins, Wi-Fi and pairing. In the Web Flasher, answer **no** when it asks to erase the device. The bootloader, partition table and boot data are byte-identical to v1.3.0; only the application changes, so an **Application Only** upgrade also works.
 
@@ -30,9 +33,9 @@ Upgrading from v1.3.0 keeps your pet, coins, Wi-Fi and pairing. In the Web Flash
 
 ### Checksums
 ```text
-4f2059c31288ed8400c0f0163735182f0d5481c0fb11896dcb48617d71e660e6  bipkins-cyd-1.4.0-app.bin
+48077694fa3253f1ca62c17a29d7571327a386032979cd43ba8154b1aeaa1a70  bipkins-cyd-1.4.0-app.bin
 4b6bdecb06a93e3c78e8cb077b61c62e799b94c5af6335fb64f718f4ed0b0be6  bipkins-cyd-1.4.0-bootloader.bin
-87a4bb9edd3b11a6297223b5c20a3527a91a7db8c65a4ca2ef6588375debaa89  bipkins-cyd-1.4.0-full.bin
+9048297603168d3ffd8a1eddc2d03ee4fce01ba3b36127f2ca18171947fd6584  bipkins-cyd-1.4.0-full.bin
 7d2c7ac4888bfd75cd5f56e8d61f69595121183afc81556c876732fd3782c62f  bipkins-cyd-1.4.0-ota_data_initial.bin
 2cdf91f63452a1305bf94210b90bea5a5477c38604fb25a92c26704ba454d8b1  bipkins-cyd-1.4.0-partitions.bin
 ```
