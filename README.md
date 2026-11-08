@@ -48,6 +48,36 @@ If you are using Chrome, Edge, or Opera on desktop, you can flash your Bipkin di
 3. Select your hardware model (e.g. `ESP32-2432S028R`), click **Connect & Install Bipkins™**, and choose your serial port.
 4. Follow the on-screen installer instructions.
 
+### Third-party scripts
+
+The flasher page runs with Web Serial access, so it loads **no code from another website**. Everything it needs is committed in this repo, pinned to an exact version, and served from the same origin:
+
+| What | Version | Where | Licence |
+|---|---|---|---|
+| [esp-web-tools](https://github.com/esphome/esp-web-tools) (the install button) | 10.4.0 | `docs/vendor/esp-web-tools-10.4.0/` | Apache-2.0 |
+| [Bootstrap](https://getbootstrap.com) CSS and JS | 5.3.3 | `docs/vendor/bootstrap-5.3.3/` | MIT |
+| Plus Jakarta Sans (font, `woff2` + `fonts.css`) | Google Fonts v12 | `docs/vendor/plus-jakarta-sans/` | SIL OFL 1.1 |
+
+Why the files are copied in instead of using `integrity=` on a CDN tag: `install-button.js` is an ES module that loads more modules at run time (`install-dialog-*.js`, the chip-specific `esp32*.js` and `stub_flasher_*.js` chunks). A Subresource Integrity hash only covers the one file named in the tag, not the modules it imports, so SRI on the entry script alone would not stop a swapped chunk. Serving the whole `dist/web/` folder from this repo covers all of them.
+
+`docs/index.html` also carries a Content Security Policy (`script-src 'self'`, `connect-src 'self'`, no other origins), so a script from any other site, or an inline script, is refused by the browser. The page's own code lives in `docs/flasher.js` for that reason; do not put `<script>` code back inline.
+
+The same files are mirrored under `vendor/` and `flasher.js` at the repo root next to the root `index.html`; keep the two copies identical. Publishing GitHub Pages from `/docs` must include `docs/vendor/` and `docs/flasher.js`, or the page will not load.
+
+**Check the vendored files** (no output other than `OK` lines):
+
+```bash
+cd docs/vendor && sha256sum -c SHA256SUMS
+```
+
+**Update a library** (do this on a branch, never by pointing the page at a CDN):
+
+1. Download the exact release from npm, for example `npm pack esp-web-tools@<new version>` or `bootstrap@<new version>`, into an empty folder, and check the tarball against the `npm view <pkg>@<version> dist.integrity` value.
+2. For esp-web-tools copy the whole `package/dist/web/` folder (every `.js` file, because the entry module imports the others) into `docs/vendor/esp-web-tools-<new version>/` together with `LICENSE`. For Bootstrap copy `dist/css/bootstrap.min.css`, `dist/js/bootstrap.bundle.min.js` and `LICENSE`. Do not edit the files. Remove the old version folder.
+3. Update the folder names in `docs/index.html` (the `<link>` and `<script>` tags) and the table above. The chunk file names change with every esp-web-tools build; nothing in the HTML refers to them.
+4. Regenerate `docs/vendor/SHA256SUMS` (keep its comment header and update the versions and npm integrity values in it), copy `docs/vendor/` to `vendor/`, and copy `docs/index.html` and `docs/flasher.js` to the root.
+5. Serve `docs/` locally (`cd docs && python3 -m http.server 8196`), open the page in Chrome or Edge with the console open, and confirm there are no errors and no Content Security Policy messages. Click **Connect & Install** and confirm the port picker opens (stop there unless you intend to flash a test board).
+
 ---
 
 ## 🚀 Manual CLI Flashing Instructions (`esptool.py`)
