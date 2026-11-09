@@ -212,5 +212,8 @@
     "web_flasher_manifest": "set new_install_prompt_erase=true; esp-web-tools erases the whole flash otherwise"
   },
   "includes_device_nvs": false,
-  "publication": "BLOCKED: independent exposure/security review, clean-device setup, preserved-state hardware and customer acceptance"
+  "publication": {
+    "status": "published-legacy",
+    "note": "published before the gate was enforced (bipkins #5)"
+  }
 }

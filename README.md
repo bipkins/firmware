@@ -152,6 +152,28 @@ This public build contains **no hardcoded Wi-Fi passwords or endpoints**. Wi-Fi 
 
 ---
 
+## 🛠️ Publishing a release (maintainers)
+
+The web flasher is published to GitHub Pages by hand, so nothing stops a half-tested build from going live except this checklist. `scripts/check_release.py` (Python 3, no packages needed) is the gate: it fails unless every checksum matches, both flasher manifests (`manifest.json` and `docs/manifests/cyd-2432s028r.json`) point at the newest release that has been approved, and that release carries an approval record.
+
+1. **Build** the release with the release script in talkth-pets (`scripts/release_firmware.py`). It writes the binaries, `releases/<version>/SHA256SUMS` and `releases/<version>/manifest.json` with `"publication": {"status": "pending", ...}`. Update the flasher manifests and `builds/` / `docs/builds/` to the new version.
+2. **Test on a device**: flash the build to a real board, check pairing and the care actions, and (for an upgrade) that the pet's state survived.
+3. **Record the approval**:
+   ```bash
+   python3 scripts/check_release.py --approve <version> --tested "what you checked on the device"
+   ```
+   This writes `{"status": "approved", "date": ..., "by": "owner", "tested": ...}` into `releases/<version>/manifest.json` and then runs the check.
+4. **Check**: `python3 scripts/check_release.py` must end with `OK: safe to publish`. Any `FAIL:` line says in plain English what to fix. Do not publish while it fails.
+5. **Commit and merge** the approval together with the release.
+6. **Publish** `main` to GitHub Pages.
+7. **Confirm it is live**: `curl -s https://bipkins.github.io/firmware/manifests/cyd-2432s028r.json` must show `"version": "<version>"`.
+
+The `publication` field of a release manifest is one of `pending`, `approved`, `superseded` (a build that was never published on its own) or `published-legacy` (1.1.0 to 1.3.0, published before the gate existed; not accepted for newer versions). Tests for the check: `python3 -m unittest discover -s tests`.
+
+Release 1.0.0 is no longer in this repository: nothing served or documented it, and its `SHA256SUMS` did not match the files. It remains in git history.
+
+---
+
 ## ⚖️ Legal & Intellectual Property Notice
 
 - **Copyright © 2026 [I-TEAM, INC](https://i-te.am). All rights reserved.**
