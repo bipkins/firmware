@@ -112,5 +112,8 @@
     "bytes": 1476832
   },
   "includes_device_nvs": false,
-  "publication": "BLOCKED: independent exposure/security review, clean-device setup, preserved-state hardware and customer acceptance"
+  "publication": {
+    "status": "published-legacy",
+    "note": "published before the gate was enforced (bipkins #5)"
+  }
 }
