@@ -8,9 +8,18 @@ This repository contains clean, credential-free binaries for first-time installa
 
 ---
 
-## 📦 Release Artifacts (v1.4.2)
+## 📦 Release Artifacts (v1.4.3)
 
-**What's new in v1.4.2**
+**What's new in v1.4.3**
+- **All 20 games reviewed and polished:** every game now has a clear goal and gives feedback on every tap.
+- **No free points for doing nothing:** a game no longer scores while you leave it alone.
+- **Fixed repeating cues:** the picks in Trick Flags and Whack a Sprout no longer follow a pattern you can learn.
+- **Smoothie Studio shows the recipe and the fruit** you need, so you can tell what to do.
+- **Input stops at the end of a game:** nothing moves or scores after the end screen.
+- **A result card after every game:** your score, misses and the coins you earned.
+- **The website learns at once** when a game starts and when it ends.
+
+**Also new since v1.4.1 (v1.4.2)**
 - **Pairing shows up quickly:** after you pair on the website, the device now shows it is paired within about 10 seconds. While a pairing code is on the screen (including the code card on the home screen) the device checks every 10 seconds instead of waiting.
 - **Restoring a saved pet brings back its exact look:** restoring a saved pet from the website now brings back its exact look, whether it has hatched, and its care levels (food, fun, rest and so on), even on a board whose memory was erased. This needs the talkth.ai server update, which is already live.
 
@@ -28,25 +37,25 @@ This repository contains clean, credential-free binaries for first-time installa
 - **Unguessable device IDs for new boards:** a newly set up device gets an ID nobody can predict. Devices that are already paired keep their ID.
 - **The full store on the device:** every hat, pair of sunglasses, halo and other wearable item now shows on every species (133 pieces of art), and the forest pet's eyes are cleaner.
 
-Upgrading from v1.3.0, v1.4.0 or v1.4.1 keeps your pet, coins, Wi-Fi and pairing. In the Web Flasher, answer **no** when it asks to erase the device. The bootloader, partition table and boot data are byte-identical to v1.3.0, v1.4.0 and v1.4.1; only the application changes, so an **Application Only** upgrade also works.
+Upgrading from v1.3.0, v1.4.0, v1.4.1 or v1.4.2 keeps your pet, coins, Wi-Fi and pairing. In the Web Flasher, answer **no** when it asks to erase the device. The bootloader, partition table and boot data are byte-identical to v1.3.0, v1.4.0, v1.4.1 and v1.4.2; only the application changes, so an **Application Only** upgrade also works.
 
 | File | Offset | Description | Size |
 |---|---|---|---|
-| `bipkins-cyd-1.4.2-full.bin` | `0x0` | **Full Flash Image**: complete flash image for brand new boards (erases saved pets and Wi-Fi) | ~1.4 MB |
-| `bipkins-cyd-1.4.2-app.bin` | `0x10000` | **Application Only**: upgrade image that **preserves existing pet NVS state** | ~1.4 MB |
-| `bipkins-cyd-1.4.2-bootloader.bin` | `0x1000` | ESP32 2nd stage bootloader (ESP-IDF 5.5, unchanged since v1.2.0) | ~27 KB |
-| `bipkins-cyd-1.4.2-partitions.bin` | `0x8000` | 2 MB partition table (unchanged from v1.3.0) | ~3 KB |
-| `bipkins-cyd-1.4.2-ota_data_initial.bin` | `0xe000` | OTA boot data (blank; boots the app at `0x10000`) | ~8 KB |
-| `manifest.json` | - | Web Flasher manifest (build metadata: `releases/1.4.2/manifest.json`) | - |
-| `SHA256SUMS` | - | SHA-256 checksums of the v1.4.2 binaries (earlier: `releases/<version>/SHA256SUMS`) | - |
+| `bipkins-cyd-1.4.3-full.bin` | `0x0` | **Full Flash Image**: complete flash image for brand new boards (erases saved pets and Wi-Fi) | ~1.4 MB |
+| `bipkins-cyd-1.4.3-app.bin` | `0x10000` | **Application Only**: upgrade image that **preserves existing pet NVS state** | ~1.4 MB |
+| `bipkins-cyd-1.4.3-bootloader.bin` | `0x1000` | ESP32 2nd stage bootloader (ESP-IDF 5.5, unchanged since v1.2.0) | ~27 KB |
+| `bipkins-cyd-1.4.3-partitions.bin` | `0x8000` | 2 MB partition table (unchanged from v1.3.0) | ~3 KB |
+| `bipkins-cyd-1.4.3-ota_data_initial.bin` | `0xe000` | OTA boot data (blank; boots the app at `0x10000`) | ~8 KB |
+| `manifest.json` | - | Web Flasher manifest (build metadata: `releases/1.4.3/manifest.json`) | - |
+| `SHA256SUMS` | - | SHA-256 checksums of the v1.4.3 binaries (earlier: `releases/<version>/SHA256SUMS`) | - |
 
 ### Checksums
 ```text
-acb9e6992945bb92707c908106bd8c2bd4e6c9e7e61ba2620e76e5b02429e81a  bipkins-cyd-1.4.2-app.bin
-4b6bdecb06a93e3c78e8cb077b61c62e799b94c5af6335fb64f718f4ed0b0be6  bipkins-cyd-1.4.2-bootloader.bin
-76007bc1ec4a7a9ab775b7ec3a0ab6d10fd3861b34736c7804a0188baeb8a5a7  bipkins-cyd-1.4.2-full.bin
-7d2c7ac4888bfd75cd5f56e8d61f69595121183afc81556c876732fd3782c62f  bipkins-cyd-1.4.2-ota_data_initial.bin
-2cdf91f63452a1305bf94210b90bea5a5477c38604fb25a92c26704ba454d8b1  bipkins-cyd-1.4.2-partitions.bin
+49a9cbcd24d7afbda3ab861f52320c9a02bec97e106941cddb68e42e359c869c  bipkins-cyd-1.4.3-app.bin
+4b6bdecb06a93e3c78e8cb077b61c62e799b94c5af6335fb64f718f4ed0b0be6  bipkins-cyd-1.4.3-bootloader.bin
+61246c430dfa6478b15b8290ecb796efd4a9f60ff5ca75ae8509cdc27d6dab54  bipkins-cyd-1.4.3-full.bin
+7d2c7ac4888bfd75cd5f56e8d61f69595121183afc81556c876732fd3782c62f  bipkins-cyd-1.4.3-ota_data_initial.bin
+2cdf91f63452a1305bf94210b90bea5a5477c38604fb25a92c26704ba454d8b1  bipkins-cyd-1.4.3-partitions.bin
 ```
 
 ---
@@ -110,17 +119,17 @@ cd docs/vendor && sha256sum -c SHA256SUMS
 ```bash
 esptool.py --chip esp32 --port /dev/ttyUSB0 --baud 921600 \
   write_flash -z --flash_mode dio --flash_freq 80m --flash_size 2MB \
-  0x0 bipkins-cyd-1.4.2-full.bin
+  0x0 bipkins-cyd-1.4.3-full.bin
 ```
 
 Alternatively, flashing individual components:
 ```bash
 esptool.py --chip esp32 --port /dev/ttyUSB0 --baud 921600 \
   write_flash -z --flash_mode dio --flash_freq 80m --flash_size 2MB \
-  0x1000  bipkins-cyd-1.4.2-bootloader.bin \
-  0x8000  bipkins-cyd-1.4.2-partitions.bin \
-  0xe000  bipkins-cyd-1.4.2-ota_data_initial.bin \
-  0x10000 bipkins-cyd-1.4.2-app.bin
+  0x1000  bipkins-cyd-1.4.3-bootloader.bin \
+  0x8000  bipkins-cyd-1.4.3-partitions.bin \
+  0xe000  bipkins-cyd-1.4.3-ota_data_initial.bin \
+  0x10000 bipkins-cyd-1.4.3-app.bin
 ```
 
 ---
@@ -132,7 +141,7 @@ esptool.py --chip esp32 --port /dev/ttyUSB0 --baud 921600 \
 ```bash
 esptool.py --chip esp32 --port /dev/ttyUSB0 --baud 921600 \
   write_flash -z --flash_mode dio --flash_freq 80m --flash_size 2MB \
-  0x10000 bipkins-cyd-1.4.2-app.bin
+  0x10000 bipkins-cyd-1.4.3-app.bin
 ```
 
 ---
