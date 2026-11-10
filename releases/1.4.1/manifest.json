@@ -229,7 +229,9 @@
   },
   "includes_device_nvs": false,
   "publication": {
-    "status": "pending",
-    "needs": "owner on-device test"
+    "status": "approved",
+    "date": "2026-11-10",
+    "by": "owner",
+    "tested": "Erase-flashed 1.4.1 on a CYD; new hardened id cyd-c8a124-3bf1c2ac; Wi-Fi setup via the setup hotspot; paired to an owner account; device syncing live on the Mirror page (owner test 2026-11-09; website pet flicker was a server bug, fixed in talkth-web #205)"
   }
 }
