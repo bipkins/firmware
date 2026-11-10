@@ -231,7 +231,9 @@
   },
   "includes_device_nvs": false,
   "publication": {
-    "status": "pending",
-    "needs": "owner on-device test"
+    "status": "approved",
+    "date": "2026-11-10",
+    "by": "owner",
+    "tested": "Owner waived the on-device test on 2026-11-10 (no live users yet). App-only flash of 1.4.3 on test board cyd-c8e78c kept Wi-Fi; the board stays online and clock-syncs with the server. Result card, Smoothie Studio and Trick Flags not checked on a device."
   }
 }
