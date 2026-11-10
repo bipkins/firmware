@@ -28,16 +28,16 @@
       <div class="d-flex align-items-center justify-content-between mb-3">
         <div class="d-flex align-items-center">
           <span class="step-number">1</span>
-          <h4 class="mb-0 fw-bold">Install Firmware</h4>
+          <h4 class="mb-0">Install Firmware</h4>
         </div>
-        <span class="badge badge-step rounded-pill px-3 py-1">Step 1 of 2</span>
+        <span class="badge badge-step">Step 1 of 2</span>
       </div>
 
       <p class="text-secondary small mb-3">
         Connect your ESP32 CYD board with a USB-C data cable and install the latest Bipkins™ release.
       </p>
 
-      <label for="deviceSelect" class="form-label fw-semibold small mb-2">Select Hardware Target:</label>
+      <label for="deviceSelect" class="form-label mb-2">Select Hardware Target:</label>
       <select id="deviceSelect" class="form-select mb-4 py-2">
         <option value="manifests/cyd-2432s028r.json" selected>
           ESP32-2432S028R (2.8" CYD Resistive Touch)
@@ -56,11 +56,11 @@
             Connect & Install Bipkins™
           </button>
           <div slot="unsupported" class="alert alert-warning mb-0 border-0 text-start" role="alert">
-            <h6 class="alert-heading fw-bold mb-1">Web Serial Unavailable</h6>
+            <h6 class="alert-heading mb-1">Web Serial Unavailable</h6>
             <small>Web Serial requires Chrome, Edge, or Opera on desktop over HTTPS. Safari and Firefox do not support Web Serial.</small>
           </div>
           <div slot="not-allowed" class="alert alert-danger mb-0 border-0 text-start" role="alert">
-            <h6 class="alert-heading fw-bold mb-1">HTTPS Required</h6>
+            <h6 class="alert-heading mb-1">HTTPS Required</h6>
             <small>Web Serial is only allowed over HTTPS or on localhost. Ensure you are accessing via https://.</small>
           </div>
         </esp-web-install-button>
@@ -78,9 +78,9 @@
       <div class="d-flex align-items-center justify-content-between mb-3">
         <div class="d-flex align-items-center">
           <span class="step-number">2</span>
-          <h4 class="mb-0 fw-bold">Internet & Activation</h4>
+          <h4 class="mb-0">Internet & Activation</h4>
         </div>
-        <span class="badge badge-step rounded-pill px-3 py-1">Step 2 of 2</span>
+        <span class="badge badge-step">Step 2 of 2</span>
       </div>
 
       <p class="text-secondary small mb-4">
@@ -93,7 +93,7 @@
           <div class="option-card p-4 h-100 d-flex flex-column justify-content-between">
             <div>
               <h5 class="mb-2">USB setup</h5>
-              <span class="badge badge-note rounded-pill mb-3">From this computer</span>
+              <span class="badge badge-note mb-3">From this computer</span>
               <ol class="setup-steps ps-3 mb-3">
                 <li class="mb-1">Keep the Bipkin connected by USB.</li>
                 <li class="mb-1">Tap <strong>SET UP WI-FI</strong> on the CYD screen, then <strong>USB Web Flasher Setup</strong>. This opens a 60-second window on the device.</li>
@@ -111,7 +111,7 @@
           <div class="option-card p-4 h-100 d-flex flex-column justify-content-between">
             <div>
               <h5 class="mb-2">Smartphone setup</h5>
-              <span class="badge badge-note warm rounded-pill mb-3">From your phone</span>
+              <span class="badge badge-note warm mb-3">From your phone</span>
               <ol class="setup-steps ps-3 mb-3">
                 <li class="mb-1">Tap <strong>SET UP WI-FI</strong> on your CYD screen.</li>
                 <li class="mb-1">Tap <strong>Phone Setup</strong> to show the on-screen QR code.</li>
@@ -120,7 +120,7 @@
               </ol>
             </div>
             <div class="p-2 tip-box">
-              <small class="text-secondary d-block" style="font-size: 0.75rem;">
+              <small class="text-secondary d-block">
                 <strong>Tip:</strong> You can also type the network directly on the CYD with <strong>Touch Keyboard</strong>.
               </small>
             </div>

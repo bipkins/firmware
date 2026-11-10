@@ -50,6 +50,16 @@ class FlasherPage(unittest.TestCase):
         for ident in ("wifiSsid", "wifiPass", "btnPushWifi", "btnUsbBridge"):
             self.assertNotIn(ident, html)
 
+    def test_type_scale_matches_talkth(self):
+        css = read("docs/flasher.css")
+        html = read("docs/index.html")
+        self.assertIn(".flasher-card h4 { font-size: 21px; font-weight: 400;", css)  # step titles: regular, like talkth section h2
+        self.assertIn(".option-card h5 { font-size: 17px; font-weight: 500;", css)  # card titles: like talkth h3
+        self.assertIn("font-size: 11px; font-weight: 650", css)  # buttons: like .primary-button
+        self.assertIn("font-weight: 750", css)  # badge: like .gallery-card-badge
+        self.assertNotRegex(html, r"<h[1-6][^>]*class=\"[^\"]*\bfw-(bold|bolder|semibold)", "Bootstrap bold on a heading")
+        self.assertNotRegex(html, r"\bfs-[1-6]\b|\bdisplay-\d|class=\"(?:[^\"]* )?lead[ \"]", "Bootstrap type-scale classes leak a different size")
+
 
 if __name__ == "__main__":
     unittest.main()
