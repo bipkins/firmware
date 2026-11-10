@@ -154,7 +154,7 @@ esptool.py --chip esp32 --port /dev/ttyUSB0 --baud 921600 \
 This public build contains **no hardcoded Wi-Fi passwords or endpoints**. Wi-Fi is provisioned safely through the USB setup protocol:
 
 1. Connect the CYD board to your computer via USB.
-2. Tap the bottom banner on the LCD screen: **"Tap here: WiFi USB setup"**. The screen will indicate a 60-second configuration window.
+2. On the LCD screen tap **SET UP WI-FI**, then **USB Web Flasher Setup**. This opens a 60-second configuration window.
 3. Open a Web Serial terminal (or the talkth.ai USB setup page) at 115200 baud, or send the command:
    ```text
    NETWORK <SSID> <PASSWORD>

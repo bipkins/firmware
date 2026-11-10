@@ -57,10 +57,10 @@ a { color: var(--green); }
 
 /* buttons (talkth .primary-button / .outline-button: 9px radius, weight 650) */
 .btn { border-radius: 9px; font-weight: 650; }
-.btn-primary, .btn-action-primary, esp-web-install-button button { background: var(--green) !important; color: #fff !important; border: 1px solid var(--green) !important; border-radius: 9px !important; font-weight: 650 !important; padding: .7rem 1.4rem; transition: background-color .15s; box-shadow: none; }
+.btn-primary, esp-web-install-button button { background: var(--green) !important; color: #fff !important; border: 1px solid var(--green) !important; border-radius: 9px !important; font-weight: 650 !important; padding: .7rem 1.4rem; transition: background-color .15s; box-shadow: none; }
 esp-web-install-button button { cursor: pointer; font: inherit; font-weight: 650 !important; padding: .8rem 1.8rem !important; }
-.btn-primary:hover:not(:disabled), .btn-action-primary:hover:not(:disabled), esp-web-install-button button:hover { filter: brightness(.97); transform: none; box-shadow: none; color: #fff; }
-.btn-primary:disabled, .btn-action-primary:disabled { opacity: .55; }
+.btn-primary:hover:not(:disabled), esp-web-install-button button:hover { filter: brightness(.97); transform: none; box-shadow: none; color: #fff; }
+.btn-primary:disabled { opacity: .55; }
 .btn-outline-secondary { background: transparent; color: var(--green); border: 1px solid var(--line); }
 .btn-outline-secondary:hover { background: var(--sage); color: var(--dark); border-color: #cedabb; }
 
@@ -72,13 +72,6 @@ esp-web-install-button button { cursor: pointer; font: inherit; font-weight: 650
 .input-group > .form-control { border-top-right-radius: 0; border-bottom-right-radius: 0; }
 .input-group > .input-group-text { border-top-left-radius: 0; border-bottom-left-radius: 0; }
 .form-check-input:checked { background-color: var(--green); border-color: var(--green); }
-
-/* status box (flasher.js adds success / warning / error) */
-.status-box { border-radius: 12px; background: #fffefa; border: 1px solid var(--line); color: var(--dark); transition: all .3s ease; }
-.status-box.success { border-color: #cedabb; background: var(--sage); }
-.status-box.warning { border-color: #f6e4a4; background: #fdf6dd; color: #8a6500; }
-.status-box.error { border-color: #dbb8a8; background: #fff5ef; color: var(--danger); }
-#statusText { color: inherit; }
 
 /* alerts shown inside the install button slots */
 .alert-warning { background: #fdf6dd; border: 1px solid #f6e4a4 !important; color: #8a6500; border-radius: 12px; }

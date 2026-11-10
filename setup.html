@@ -15,7 +15,7 @@ button#close,button#clear{background:transparent;color:var(--green);border-color
 #status{min-height:4rem;padding:.8rem 1rem;border:1px solid var(--line);border-radius:12px;background:#fffefa}
 </style>
 <h1>Connect your Bipkin</h1>
-<p>Use Chrome or Edge on a computer. Connect the device with a data-capable USB cable, select its port, then physically tap <strong>WiFi USB setup</strong> at the bottom of its screen. Send the network within 60 seconds.</p>
+<p>Use Chrome or Edge on a computer. Connect the device with a data-capable USB cable, select its port, then on the device tap <strong>SET UP WI-FI</strong> and then <strong>USB Web Flasher Setup</strong> to open the 60-second window. Send the network within 60 seconds.</p>
 <p>Close any serial monitor or device mirror using the same port first. WiFi credentials stay on this device. Internet time verification is required before care and rewards unlock.</p>
 <button id="connect">Select USB device</button><button id="close" disabled>Cancel and close</button>
 <form id="form"><label>WiFi network name<input id="ssid" autocomplete="off" required></label>
@@ -41,7 +41,7 @@ async function readLoop(token){let buffer='';try{
       // Only public protocol literals enter UI. Never display raw USB payloads.
       if(!pending)continue;
       if(line==='[NETWORK] Saved; restart device'){say('Saved. Unplug and reconnect the device; care unlocks after verified internet time.');await close();return;}
-      const errors={'[NETWORK] Physical setup touch required':'Physically tap the device setup strip, reconnect USB here and try again.',
+      const errors={'[NETWORK] Physical setup touch required':'On the device tap SET UP WI-FI, then USB Web Flasher Setup, reconnect USB here and try again.',
        '[NETWORK] Invalid network input':'Network input rejected. Check the byte limits and try again.',
        '[NETWORK] Storage failed':'Device storage failed. Previous settings were preserved.',
        '[NETWORK] Input rejected':'Input was malformed or too long. Previous settings were preserved.'};
@@ -58,14 +58,14 @@ async function submit(clear=false){if(!port||pending)return;
   inputsClear();
   if(!clear&&(!valid(ssid,1,32)||!(password.length===0||valid(password,8,63)))){say('Enter a 1–32 byte network name and an empty or 8–63 byte password. Control characters are unsupported.');ssid.fill(0);password.fill(0);return;}
   let command=clear?'NETWORK_CLEAR\n':`NETWORK ${hex(ssid)} ${hex(password)}\n`;
-  ssid.fill(0);password.fill(0);pending=true;buttons();say('Waiting for the device. Ensure its physical setup window is open.');
-  timeout=setTimeout(async()=>{say('Device response timed out. Reconnect USB and open the physical setup window again.');await close();},12000);
+  ssid.fill(0);password.fill(0);pending=true;buttons();say('Waiting for the device. Ensure the 60-second setup window is open on the device.');
+  timeout=setTimeout(async()=>{say('Device response timed out. Reconnect USB and open the setup window on the device again.');await close();},12000);
   try{const payload=bytes(command);command='';try{await writer.write(payload);}finally{payload.fill(0);}}
   catch{say('Could not send settings. Reconnect USB and try again.');await close();}}
 el('connect').onclick=async()=>{try{
   if(!window.isSecureContext||!('serial' in navigator)){say('Web Serial requires Chrome or Edge on localhost or HTTPS. See the setup guide.');return;}
   port=await navigator.serial.requestPort();await port.open({baudRate:115200});
-  reader=port.readable.getReader();writer=port.writable.getWriter();buttons();say('Connected. Physically tap WiFi USB setup on the device, then save your network.');void readLoop(++generation);
+  reader=port.readable.getReader();writer=port.writable.getWriter();buttons();say('Connected. On the device tap SET UP WI-FI, then USB Web Flasher Setup, then save your network.');void readLoop(++generation);
 }catch{say('Port selection cancelled or port unavailable. Close other serial applications and try again.');await close();}};
 el('close').onclick=async()=>{say('Cancelled. USB closed.');await close();};
 el('form').onsubmit=event=>{event.preventDefault();void submit();};el('clear').onclick=()=>void submit(true);

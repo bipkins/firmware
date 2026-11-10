@@ -36,6 +36,20 @@ class FlasherPage(unittest.TestCase):
         for token in ("--green: #426a51", "--cream: #f8f6ef", "--paper: #fffdf7", "Georgia"):
             self.assertIn(token, css)
 
+    def test_no_page_sends_dev_only_serial_commands(self):
+        # Release firmware refuses these (talkth-pets docs/PUBLIC_FIRMWARE.md); the working path is NETWORK.
+        for name in ("docs/index.html", "docs/flasher.js", "docs/setup.html"):
+            self.assertNotRegex(read(name), r"SET_WIFI|WIFI_CONFIG|BRIDGE_TIME|TIME_SYNC", name)
+        self.assertIn("NETWORK ", read("docs/setup.html"))
+
+    def test_no_unbacked_claims_or_removed_controls(self):
+        html = read("docs/index.html")
+        for text in ("100% private", "Air-Gapped", "verified Bipkins", "Push Wi-Fi", "Clock Sync"):
+            self.assertNotIn(text, html)
+        self.assertIn('href="setup.html"', html)
+        for ident in ("wifiSsid", "wifiPass", "btnPushWifi", "btnUsbBridge"):
+            self.assertNotIn(ident, html)
+
 
 if __name__ == "__main__":
     unittest.main()
