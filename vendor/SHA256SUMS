@@ -4,7 +4,6 @@
 #   npm integrity sha512-3pwkeFFm5Fj7UQo8SJNYK5RXrtNCpq6X9QoI6bMT4GBZWgrJqjn0YvM9ihG74BtMoSFYXfmDtkehuxe50PTMPQ==
 # bootstrap 5.3.3 (MIT): dist/css/bootstrap.min.css and dist/js/bootstrap.bundle.min.js from the npm tarball
 #   npm integrity sha512-8HLCdWgyoMguSO9o+aH+iuZ+aht+mzW0u3HIMzVu7Srrpv7EBBxTnrFlSCskwdY1+EOFQSm7uMJhNQHkdPcmjg==
-# Plus Jakarta Sans v12 (SIL OFL 1.1): woff2 files from fonts.gstatic.com; fonts.css is a local @font-face file
 0833b2e9c3a26c258476c46266e6877fc75218625162e0460be9a3a098a61c6c  ./bootstrap-5.3.3/bootstrap.bundle.min.js
 3c8f27e6009ccfd710a905e6dcf12d0ee3c6f2ac7da05b0572d3e0d12e736fc8  ./bootstrap-5.3.3/bootstrap.min.css
 8c14611ae41ac6fd543c13349f22188eb12c69b3e59105c5eca3925a8e4eca3e  ./bootstrap-5.3.3/LICENSE
@@ -35,9 +34,3 @@ d032d82b4188867dd2951b1f02bd5bcf8a7669e16184bbda87b67b757d7ec352  ./esp-web-tool
 7c05cb1dc75da8ebca5199e53de474e037f82ce5bf1978330a35354e40e87494  ./esp-web-tools-10.4.0/stub_flasher_32s3-CiJyd6Fk.js
 7ca214be908aacff37fd937188f55042c9aeae8af30da7141d634ef68778fc79  ./esp-web-tools-10.4.0/stub_flasher_8266-CQFcqJ_a.js
 ad32b41ad8507aed4f7241178d9a472457355ecf0282faaa655de3ea37809c9a  ./esp-web-tools-10.4.0/styles-sT2V1cOw.js
-cabb1bbbbaa293b5e43eafe4802b91d10610be405ccf418a9688f82ee128bfd6  ./plus-jakarta-sans/fonts.css
-153fc85b70298beeb1d61a5f723331649e7f23bb77302a66e61cb3e2fbdb5e79  ./plus-jakarta-sans/LDIoaomQNQcsA88c7O9yZ4KMCoOg4Ko20yw.woff2
-38e3b8fd8045048eb311d90170a4429ed2c8f405852dc3d91b5af8452758703f  ./plus-jakarta-sans/LDIoaomQNQcsA88c7O9yZ4KMCoOg4Ko40yyygA.woff2
-b275d1258601dda240fc6a1d4a6cad56e691d898f5cdf1b0e4fd6ca0022d8e40  ./plus-jakarta-sans/LDIoaomQNQcsA88c7O9yZ4KMCoOg4Ko50yyygA.woff2
-c46a510ab43925a55ecfe6c2d5fad0ce1902cd48ab276621d41f7afa42e4daee  ./plus-jakarta-sans/LDIoaomQNQcsA88c7O9yZ4KMCoOg4Ko70yyygA.woff2
-995c7199cab65954f545996326755daee7b63cc6b42b06c13da1f9502ab08a99  ./plus-jakarta-sans/OFL.txt

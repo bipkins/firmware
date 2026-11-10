@@ -77,13 +77,16 @@ The flasher page runs with Web Serial access, so it loads **no code from another
 |---|---|---|---|
 | [esp-web-tools](https://github.com/esphome/esp-web-tools) (the install button) | 10.4.0 | `docs/vendor/esp-web-tools-10.4.0/` | Apache-2.0 |
 | [Bootstrap](https://getbootstrap.com) CSS and JS | 5.3.3 | `docs/vendor/bootstrap-5.3.3/` | MIT |
-| Plus Jakarta Sans (font, `woff2` + `fonts.css`) | Google Fonts v12 | `docs/vendor/plus-jakarta-sans/` | SIL OFL 1.1 |
+
+**Look.** The page uses the talkth.ai palette and type (the `:root` colours, the system sans-serif stack, Georgia headings, 9 px buttons, bordered 13 px cards) from `docs/flasher.css`, loaded after Bootstrap. talkth.ai is light-only and loads no web fonts, so this page loads none either (there is no font to vendor). The talkth.ai logo and favicon are `docs/brand.svg` and `docs/favicon.svg`. To restyle, change the variables at the top of `docs/flasher.css`; keep it in step with talkth-web `static/style.css`.
+
+**Release line.** The page shows `Release: v<version>` and nothing else about the release. `flasher.js` reads `version` from the manifest of the selected hardware target (`docs/manifests/*.json`), so the line follows the manifest and needs no edit per release. Do not put release notes in the page; they stay in this README and `releases/<version>/`.
 
 Why the files are copied in instead of using `integrity=` on a CDN tag: `install-button.js` is an ES module that loads more modules at run time (`install-dialog-*.js`, the chip-specific `esp32*.js` and `stub_flasher_*.js` chunks). A Subresource Integrity hash only covers the one file named in the tag, not the modules it imports, so SRI on the entry script alone would not stop a swapped chunk. Serving the whole `dist/web/` folder from this repo covers all of them.
 
 `docs/index.html` also carries a Content Security Policy (`script-src 'self'`, `connect-src 'self'`, no other origins), so a script from any other site, or an inline script, is refused by the browser. The page's own code lives in `docs/flasher.js` for that reason; do not put `<script>` code back inline.
 
-The same files are mirrored under `vendor/` and `flasher.js` at the repo root next to the root `index.html`; keep the two copies identical. Publishing GitHub Pages from `/docs` must include `docs/vendor/` and `docs/flasher.js`, or the page will not load.
+The same files are mirrored under `vendor/`, `flasher.js`, `flasher.css`, `brand.svg`, `favicon.svg`, `setup.html` and `index.html` at the repo root; keep the two copies identical (`tests/test_flasher_page.py` checks this). Publishing GitHub Pages from `/docs` must include `docs/vendor/`, `docs/flasher.js` and `docs/flasher.css`, or the page will not load.
 
 **Check the vendored files** (no output other than `OK` lines):
 
@@ -96,7 +99,7 @@ cd docs/vendor && sha256sum -c SHA256SUMS
 1. Download the exact release from npm, for example `npm pack esp-web-tools@<new version>` or `bootstrap@<new version>`, into an empty folder, and check the tarball against the `npm view <pkg>@<version> dist.integrity` value.
 2. For esp-web-tools copy the whole `package/dist/web/` folder (every `.js` file, because the entry module imports the others) into `docs/vendor/esp-web-tools-<new version>/` together with `LICENSE`. For Bootstrap copy `dist/css/bootstrap.min.css`, `dist/js/bootstrap.bundle.min.js` and `LICENSE`. Do not edit the files. Remove the old version folder.
 3. Update the folder names in `docs/index.html` (the `<link>` and `<script>` tags) and the table above. The chunk file names change with every esp-web-tools build; nothing in the HTML refers to them.
-4. Regenerate `docs/vendor/SHA256SUMS` (keep its comment header and update the versions and npm integrity values in it), copy `docs/vendor/` to `vendor/`, and copy `docs/index.html` and `docs/flasher.js` to the root.
+4. Regenerate `docs/vendor/SHA256SUMS` (keep its comment header and update the versions and npm integrity values in it), copy `docs/vendor/` to `vendor/`, and copy `docs/index.html`, `docs/flasher.js` and `docs/flasher.css` to the root.
 5. Serve `docs/` locally (`cd docs && python3 -m http.server 8196`), open the page in Chrome or Edge with the console open, and confirm there are no errors and no Content Security Policy messages. Click **Connect & Install** and confirm the port picker opens (stop there unless you intend to flash a test board).
 
 ---
@@ -151,7 +154,7 @@ esptool.py --chip esp32 --port /dev/ttyUSB0 --baud 921600 \
 This public build contains **no hardcoded Wi-Fi passwords or endpoints**. Wi-Fi is provisioned safely through the USB setup protocol:
 
 1. Connect the CYD board to your computer via USB.
-2. Tap the bottom banner on the LCD screen: **"Tap here: WiFi USB setup"**. The screen will indicate a 60-second configuration window.
+2. On the LCD screen tap **SET UP WI-FI**, then **USB Web Flasher Setup**. This opens a 60-second configuration window.
 3. Open a Web Serial terminal (or the talkth.ai USB setup page) at 115200 baud, or send the command:
    ```text
    NETWORK <SSID> <PASSWORD>

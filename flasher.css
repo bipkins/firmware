@@ -1,0 +1,83 @@
+/* Bipkins web flasher: same palette, fonts and component shapes as talkth.ai
+   (talkth-web static/style.css: the :root tokens, system sans body, Georgia headings,
+   9px buttons, 13px bordered cards). talkth.ai is light-only and loads no web fonts,
+   so neither does this page. Loaded after Bootstrap, so it overrides it. */
+:root {
+  --cream: #f8f6ef;
+  --paper: #fffdf7;
+  --green: #426a51;
+  --dark: #2c4335;
+  --muted: #788175;
+  --line: #e5e7dc;
+  --sage: #e5ecdd;
+  --yellow: #f1dca6;
+  --danger: #a44942;
+  --shadow: 0 12px 32px #3a503008;
+  color-scheme: light;
+  font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --serif: Georgia, "Times New Roman", serif;
+  /* Bootstrap */
+  --bs-body-bg: var(--cream);
+  --bs-body-color: var(--dark);
+  --bs-body-font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --bs-link-color-rgb: 66, 106, 81;
+  --bs-link-hover-color-rgb: 44, 67, 53;
+  --bs-border-color: var(--line);
+  /* ESP Web Tools install dialog */
+  --mdc-theme-primary: #426a51;
+  --mdc-theme-on-primary: #ffffff;
+}
+body { background: var(--cream); color: var(--dark); min-height: 100vh; font-synthesis: none; }
+a { color: var(--green); }
+.text-secondary, .text-muted { color: var(--muted) !important; }
+:focus-visible { outline: 3px solid #bda56c; outline-offset: 3px; }
+
+/* header */
+.brand-row { display: inline-flex; align-items: center; gap: 10px; margin-bottom: 14px; font-size: 27px; letter-spacing: -1.5px; font-weight: 750; color: var(--dark); text-decoration: none; }
+.brand-row img { width: 43px; height: 43px; }
+.brand-light { font-weight: 400; }
+.eyebrow { font-size: 10px; font-weight: 700; letter-spacing: 1.8px; color: #889577; text-transform: uppercase; }
+.page-title { font-family: var(--serif); font-weight: 400; font-size: 33px; letter-spacing: -.8px; margin: 9px 0 8px; color: var(--dark); }
+.lead-text { color: var(--muted); font-size: 15px; line-height: 1.7; }
+
+/* cards */
+.flasher-card, .option-card { border: 1px solid var(--line); border-radius: 13px; background: var(--paper); box-shadow: var(--shadow); color: var(--dark); }
+.option-card { box-shadow: none; background: #fffefa; }
+.flasher-card h4, .option-card h5 { font-family: var(--serif); font-weight: 400; color: var(--dark); }
+.flasher-card h4 { font-size: 21px; }
+.option-card h5 { font-size: 18px; }
+.flasher-card strong, .option-card strong { color: var(--dark); }
+
+/* pills and step badges */
+.badge-brand { background: var(--sage); border: 1px solid #cedabb; color: #6e8b5c; font-weight: 600; }
+.badge-step, .badge-note { background: var(--sage); border: 1px solid #cedabb; color: #6e8b5c; font-size: .72rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
+.badge-note { text-transform: none; letter-spacing: 0; font-weight: 600; font-size: .75rem; }
+.badge-note.warm { background: #fdf6dd; border-color: #f6e4a4; color: #8a6500; }
+.step-number { width: 28px; height: 28px; border-radius: 50%; background: var(--sage); color: var(--green); display: inline-flex; align-items: center; justify-content: center; font-weight: 700; font-size: .875rem; margin-right: .6rem; flex-shrink: 0; }
+
+/* buttons (talkth .primary-button / .outline-button: 9px radius, weight 650) */
+.btn { border-radius: 9px; font-weight: 650; }
+.btn-primary, esp-web-install-button button { background: var(--green) !important; color: #fff !important; border: 1px solid var(--green) !important; border-radius: 9px !important; font-weight: 650 !important; padding: .7rem 1.4rem; transition: background-color .15s; box-shadow: none; }
+esp-web-install-button button { cursor: pointer; font: inherit; font-weight: 650 !important; padding: .8rem 1.8rem !important; }
+.btn-primary:hover:not(:disabled), esp-web-install-button button:hover { filter: brightness(.97); transform: none; box-shadow: none; color: #fff; }
+.btn-primary:disabled { opacity: .55; }
+.btn-outline-secondary { background: transparent; color: var(--green); border: 1px solid var(--line); }
+.btn-outline-secondary:hover { background: var(--sage); color: var(--dark); border-color: #cedabb; }
+
+/* fields */
+.form-label { color: #7a8b70; font-weight: 600; }
+.form-control, .form-select, .input-group-text { border: 1px solid #dbe2d1; background-color: #fffefa; border-radius: 8px; color: var(--dark); }
+.form-control::placeholder { color: #a3ab99; }
+.form-control:focus, .form-select:focus { border-color: var(--green); box-shadow: 0 0 0 .2rem #426a5126; background-color: #fffefa; color: var(--dark); }
+.input-group > .form-control { border-top-right-radius: 0; border-bottom-right-radius: 0; }
+.input-group > .input-group-text { border-top-left-radius: 0; border-bottom-left-radius: 0; }
+.form-check-input:checked { background-color: var(--green); border-color: var(--green); }
+
+/* alerts shown inside the install button slots */
+.alert-warning { background: #fdf6dd; border: 1px solid #f6e4a4 !important; color: #8a6500; border-radius: 12px; }
+.alert-danger { background: #fff5ef; border: 1px solid #dbb8a8 !important; color: var(--danger); border-radius: 12px; }
+
+.tip-box { background: var(--cream); border: 1px dashed #cdd6c0; border-radius: 9px; }
+.meta-row { font-size: .78rem; }
+.setup-steps { font-size: .85rem; line-height: 1.6; color: var(--dark); }
+footer a { text-decoration: underline; text-underline-offset: 2px; }
