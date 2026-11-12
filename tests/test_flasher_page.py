@@ -61,5 +61,15 @@ class FlasherPage(unittest.TestCase):
         self.assertNotRegex(html, r"\bfs-[1-6]\b|\bdisplay-\d|class=\"(?:[^\"]* )?lead[ \"]", "Bootstrap type-scale classes leak a different size")
 
 
+    def test_both_pages_have_age_line_and_legal_links(self):
+        for name in ("docs/index.html", "docs/setup.html"):
+            html = read(name)
+            self.assertIn("For ages 13 and up.", html, f"{name} lacks the age statement")
+            for label, url in (("Terms", "https://talkth.ai/terms"),
+                               ("Privacy", "https://talkth.ai/privacy"),
+                               ("Safety", "https://talkth.ai/safety")):
+                self.assertRegex(html, rf'<a href="{re.escape(url)}"[^>]*>{label}</a>', f"{name} lacks the {label} link")
+
+
 if __name__ == "__main__":
     unittest.main()

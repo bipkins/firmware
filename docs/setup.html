@@ -13,6 +13,7 @@ button{font:inherit;font-size:11px;font-weight:650;line-height:normal;padding:11
 button:hover:not(:disabled){filter:brightness(.97)}
 button:disabled{cursor:default;opacity:.55}
 button#close,button#clear{background:transparent;color:var(--green);border-color:var(--line)}
+#legal{margin-top:2.5rem;text-align:center;font-size:11px;color:#78896e}
 #status{min-height:4rem;padding:12px 14px;color:var(--dark);border:1px solid var(--line);border-radius:12px;background:#fffefa}
 </style>
 <h1>Connect your Bipkin</h1>
@@ -24,6 +25,10 @@ button#close,button#clear{background:transparent;color:var(--green);border-color
 <p>An empty password is only for an open network. Otherwise enter 8–63 UTF-8 bytes.</p>
 <button id="send" disabled>Save network</button><button id="clear" type="button" disabled>Forget device WiFi</button></form>
 <p id="status" role="status" aria-live="polite">Select a USB device to start.</p>
+<div class="text-center" id="legal">
+<p>For ages 13 and up.</p>
+<p><a href="https://talkth.ai/terms" target="_blank" rel="noopener">Terms</a> &middot; <a href="https://talkth.ai/privacy" target="_blank" rel="noopener">Privacy</a> &middot; <a href="https://talkth.ai/safety" target="_blank" rel="noopener">Safety</a></p>
+</div>
 <script>
 'use strict';
 const el=id=>document.getElementById(id), enc=new TextEncoder();
