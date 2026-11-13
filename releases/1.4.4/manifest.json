@@ -233,7 +233,9 @@
   },
   "includes_device_nvs": false,
   "publication": {
-    "status": "pending",
-    "needs": "owner on-device test"
+    "status": "approved",
+    "date": "2026-11-13",
+    "by": "owner",
+    "tested": "Owner chose to publish before the on-device test on 2026-11-13 (no live users yet). Device test follows after publication on test board cyd-c8e78c; prices, result card, forest sprite and USB setup text not yet checked on a device."
   }
 }
