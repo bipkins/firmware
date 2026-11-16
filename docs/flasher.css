@@ -88,3 +88,12 @@ body, .flasher-card, .option-card, .lead-text, .small, small, .alert { font-size
 .text-secondary, .text-muted, .lead-text { color: #78896e !important; }
 .alert { padding: 12px 14px; }
 @media (max-width: 760px) { .page-title { font-size: 29px; } }
+
+/* "open this on a computer" message for browsers without Web Serial */
+.flash-gate { border: 1px solid #e5d4ba; background: #fbf4e6; border-radius: 12px; padding: 14px 16px; margin-bottom: 1rem; display: grid; gap: 8px; color: #6d5a37; }
+.flash-gate[hidden] { display: none; }
+.flash-gate strong { font-family: var(--serif); font-size: 17px; font-weight: 500; color: var(--dark); }
+.flash-gate p { margin: 0; }
+.flash-gate-url { font-family: ui-monospace, monospace; font-size: 11px; overflow-wrap: anywhere; color: var(--dark); }
+.flash-gate-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+.flash-gate-status { color: var(--green); min-height: 1em; }

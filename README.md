@@ -4,6 +4,10 @@ An open-source desktop creature platform powered by talkth.ai.
 
 Official public release repository for **Bipkins™** (ESP32-2432S028R "Cheap Yellow Display" / CYD edition).
 
+> **Supported board:** ESP32-2432S028R (single USB port, resistive touch). Other versions of this board (two USB ports, USB-C plus micro-USB, or capacitive touch) are not supported yet. The web flasher cannot tell board versions apart: after you connect it only sees that the chip is an ESP32, so check your board before you install.
+>
+> **Cable:** use a USB data cable that fits your board (most of these boards use micro-USB; some use USB-C). A charge-only cable will not work.
+
 This repository contains clean, credential-free binaries for first-time installation and seamless upgrades of your Bipkins™ virtual pet device.
 
 ---
@@ -73,11 +77,11 @@ a81d4dccf48883d5461a3d7e8085062fa1ba66660013ffcdbdee6de126dd2682  bipkins-cyd-1.
 
 ## ⚡ In-Browser Web Flasher (No Installation Required)
 
-If you are using Chrome, Edge, or Opera on desktop, you can flash your Bipkin directly from the web without installing Python or `esptool`:
+If you are using Chrome, Edge, or Opera on a computer, you can flash your Bipkin directly from the web without installing Python or `esptool`. Phones and tablets, and Firefox and Safari, cannot flash a board (no Web Serial); on those the page shows an "open this on a computer" message with a link to copy or share, and asks for no email address:
 
 1. Open the **[Bipkins™ Web Flasher](docs/index.html)** (hosted directly via GitHub Pages under `/docs`).
-2. Connect your CYD ESP32 board to your computer via USB.
-3. Select your hardware model (e.g. `ESP32-2432S028R`), click **Connect & Install Bipkins™**, and choose your serial port.
+2. Connect your CYD ESP32 board to your computer with a USB data cable that fits the board.
+3. Select your hardware model (`ESP32-2432S028R`, single USB port, resistive touch; the other versions are listed as not supported yet), click **Connect & Install Bipkins™**, and choose your serial port.
 4. Follow the on-screen installer instructions.
 
 ### Third-party scripts
@@ -122,7 +126,7 @@ cd docs/vendor && sha256sum -c SHA256SUMS
   ```bash
   pip install esptool
   ```
-- A USB data cable connected to the CYD ESP32 board (identifies as `/dev/ttyUSB0` or `COMx`).
+- A USB data cable that fits your board (most of these boards use micro-USB; some use USB-C), connected to the CYD ESP32 board (identifies as `/dev/ttyUSB0` or `COMx`).
 
 ---
 

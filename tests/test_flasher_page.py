@@ -1,10 +1,13 @@
 """Checks on the flasher page itself. Run: python3 -m unittest discover -s tests -v"""
+import json
 import re
+import shutil
+import subprocess
 import unittest
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
-MIRRORED = ["index.html", "flasher.js", "flasher.css", "brand.svg", "favicon.svg", "setup.html"]
+MIRRORED = ["index.html", "flasher.js", "flasher.css", "flash_support.js", "brand.svg", "favicon.svg", "setup.html"]
 
 
 def read(rel):
@@ -69,6 +72,81 @@ class FlasherPage(unittest.TestCase):
                                ("Privacy", "https://talkth.ai/privacy"),
                                ("Safety", "https://talkth.ai/safety")):
                 self.assertRegex(html, rf'<a href="{re.escape(url)}"[^>]*>{label}</a>', f"{name} lacks the {label} link")
+
+    def test_board_is_named_exactly_and_other_versions_are_not_supported_yet(self):
+        html = read("docs/index.html")
+        self.assertIn("ESP32-2432S028R (single USB port, resistive touch)", html)
+        self.assertRegex(html, r"two USB ports, USB-C plus micro-USB, or capacitive touch\) are not supported yet")
+        self.assertRegex(html, r"cannot tell board versions apart")  # nothing pretends to detect the variant
+        self.assertNotRegex(html, r"S028_2USB|S028C|Dual USB-C|Coming Soon")
+        readme = read("README.md")
+        self.assertIn("ESP32-2432S028R (single USB port, resistive touch)", readme)
+        self.assertIn("are not supported yet", readme)
+
+    def test_cable_wording_does_not_assert_one_connector(self):
+        for name in ("docs/index.html", "README.md"):
+            text = read(name)
+            self.assertNotRegex(text, r"USB-C data cable", name)
+            self.assertIn("most of these boards use micro-USB; some use USB-C", text, name)
+
+    def test_phone_gate_is_wired_without_inline_script_or_email_capture(self):
+        html = read("docs/index.html")
+        self.assertIn('id="flashGate"', html)
+        self.assertLess(html.index("flash_support.js"), html.index('src="flasher.js"'))
+        self.assertNotRegex(html + read("docs/flash_support.js"), r"type=\"email\"|<input[^>]*email|mailto:")
+        self.assertIn("showGateIfNeeded", read("docs/flasher.js"))
+
+
+@unittest.skipUnless(shutil.which("node"), "node is needed to run the detection logic")
+class FlashSupportLogic(unittest.TestCase):
+    """docs/flash_support.js is a plain script that Node can load, so its detection runs here for real."""
+
+    SCRIPT = r"""
+const fs = require(process.argv[1] + '/docs/flash_support.js');
+const UA = {
+  android: 'Mozilla/5.0 (Linux; Android 14; Pixel 8) AppleWebKit/537.36 Chrome/130.0 Mobile Safari/537.36',
+  iphone: 'Mozilla/5.0 (iPhone; CPU iPhone OS 17_5 like Mac OS X) AppleWebKit/605.1.15 Version/17.5 Mobile/15E148 Safari/604.1',
+  ipad: 'Mozilla/5.0 (iPad; CPU OS 17_5 like Mac OS X) AppleWebKit/605.1.15 Version/17.5 Mobile/15E148 Safari/604.1',
+  firefox: 'Mozilla/5.0 (X11; Linux x86_64; rv:130.0) Gecko/20100101 Firefox/130.0',
+  safari: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 Version/17.5 Safari/605.1.15',
+  chrome: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/130.0 Safari/537.36',
+};
+const out = {
+  chrome: fs.flashSupport({ userAgent: UA.chrome, serial: {} }),
+  android: fs.flashSupport({ userAgent: UA.android }),
+  iphone: fs.flashSupport({ userAgent: UA.iphone }),
+  ipad: fs.flashSupport({ userAgent: UA.ipad }),
+  ipadDesktopMode: fs.flashSupport({ userAgent: UA.safari, platform: 'MacIntel', maxTouchPoints: 5 }),
+  uaDataMobile: fs.flashSupport({ userAgent: UA.firefox, userAgentData: { mobile: true } }),
+  firefox: fs.flashSupport({ userAgent: UA.firefox, platform: 'Linux x86_64', maxTouchPoints: 0 }),
+  safariMac: fs.flashSupport({ userAgent: UA.safari, platform: 'MacIntel', maxTouchPoints: 0 }),
+};
+(async () => {
+  let written = null;
+  out.copyApi = await fs.copyText('u', { clipboard: { writeText: async (t) => { written = t; } } }, {});
+  out.copyApiText = written;
+  const calls = [];
+  const doc = { body: { appendChild() {} }, createElement() { return { style: {}, setAttribute() {}, select() {}, remove() {} }; }, execCommand(c) { calls.push(c); return true; } };
+  out.copyFallback = await fs.copyText('u', {}, doc);
+  out.fallbackCalls = calls;
+  out.copyFails = await fs.copyText('u', {}, { body: { appendChild() { throw new Error('x'); } }, createElement() { return { style: {}, setAttribute() {} }; } });
+  console.log(JSON.stringify(out));
+})();
+"""
+
+    def test_detection_and_copy(self):
+        out = json.loads(subprocess.run(["node", "-e", self.SCRIPT, str(ROOT)], capture_output=True, text=True,
+                                        check=True).stdout)
+        self.assertEqual("ok", out["chrome"])
+        for key in ("android", "iphone", "ipad", "ipadDesktopMode", "uaDataMobile"):
+            self.assertEqual("phone", out[key], key)
+        for key in ("firefox", "safariMac"):
+            self.assertEqual("browser", out[key], key)
+        self.assertTrue(out["copyApi"])
+        self.assertEqual("u", out["copyApiText"])
+        self.assertTrue(out["copyFallback"])
+        self.assertEqual(["copy"], out["fallbackCalls"])
+        self.assertFalse(out["copyFails"])
 
 
 if __name__ == "__main__":

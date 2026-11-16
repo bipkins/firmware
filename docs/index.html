@@ -19,7 +19,7 @@
       <div class="eyebrow">Bipkins™ Official Firmware</div>
       <h1 class="page-title">Bipkins™ Web Flasher & Setup</h1>
       <p class="lead-text">
-        Flash companion firmware and connect your ESP32 CYD companion in Chrome or Edge via Web Serial.
+        Flash companion firmware and connect your ESP32 CYD companion from a computer, in Chrome or Edge via Web Serial.
       </p>
     </div>
 
@@ -34,19 +34,27 @@
       </div>
 
       <p class="text-secondary small mb-3">
-        Connect your ESP32 CYD board with a USB-C data cable and install the latest Bipkins™ release.
+        Connect your ESP32 CYD board with a USB data cable that fits your board (most of these boards use micro-USB; some use USB-C) and install the latest Bipkins™ release.
       </p>
+
+      <div class="p-2 mb-3 tip-box" id="boardNotice">
+        <small class="text-secondary d-block">
+          <strong>Supported board:</strong> ESP32-2432S028R (single USB port, resistive touch). Other versions of this board (two USB ports, USB-C plus micro-USB, or capacitive touch) are not supported yet. This page cannot tell board versions apart: after you connect it only sees that the chip is an ESP32, so check your board before you install.
+        </small>
+      </div>
+
+      <div class="flash-gate" id="flashGate" hidden></div>
 
       <label for="deviceSelect" class="form-label mb-2">Select Hardware Target:</label>
       <select id="deviceSelect" class="form-select mb-4 py-2">
         <option value="manifests/cyd-2432s028r.json" selected>
-          ESP32-2432S028R (2.8" CYD Resistive Touch)
+          ESP32-2432S028R (single USB port, resistive touch)
         </option>
         <option value="manifests/cyd-capacitive.json" disabled>
-          ESP32-2432S028C (2.8" CYD Capacitive Touch) — Coming Soon
+          2.8" CYD with capacitive touch — not supported yet
         </option>
         <option value="manifests/cyd-dual-usb.json" disabled>
-          ESP32-2432S028_2USB (Dual USB-C Edition) — Coming Soon
+          2.8" CYD with two USB ports — not supported yet
         </option>
       </select>
 
@@ -57,7 +65,7 @@
           </button>
           <div slot="unsupported" class="alert alert-warning mb-0 border-0 text-start" role="alert">
             <h6 class="alert-heading mb-1">Web Serial Unavailable</h6>
-            <small>Web Serial requires Chrome, Edge, or Opera on desktop over HTTPS. Safari and Firefox do not support Web Serial.</small>
+            <small>Use Chrome or Edge on a computer. Phones, tablets, Firefox and Safari cannot flash a board.</small>
           </div>
           <div slot="not-allowed" class="alert alert-danger mb-0 border-0 text-start" role="alert">
             <h6 class="alert-heading mb-1">HTTPS Required</h6>
@@ -133,7 +141,7 @@
     <div class="flasher-card p-4 mb-4 text-start small text-secondary">
       <div class="fw-semibold mb-2">Summary of first-time installation</div>
       <ol class="ps-3 mb-0">
-        <li class="mb-1"><strong>Flash:</strong> Click <em>Connect & Install</em> above and choose your board's USB port (CH340/CP2102).</li>
+        <li class="mb-1"><strong>Flash:</strong> On a computer, click <em>Connect & Install</em> above and choose your board's USB port (CH340/CP2102).</li>
         <li class="mb-1"><strong>Connect:</strong> Give the Bipkin your Wi-Fi, either with the USB setup page or from your phone using the QR code on the CYD screen.</li>
         <li><strong>Play:</strong> Care and rewards stay locked until the Bipkin has Wi-Fi and has verified the internet time. After that your companion is ready to play.</li>
       </ol>
@@ -160,6 +168,7 @@
   </div>
 
   <script src="vendor/bootstrap-5.3.3/bootstrap.bundle.min.js"></script>
+  <script src="flash_support.js"></script>
   <script src="flasher.js"></script>
 </body>
 </html>
