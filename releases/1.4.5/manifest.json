@@ -243,7 +243,9 @@
   },
   "includes_device_nvs": false,
   "publication": {
-    "status": "pending",
-    "needs": "owner on-device test"
+    "status": "approved",
+    "date": "2026-11-16",
+    "by": "owner",
+    "tested": "Owner device test 2026-11-16: app-only upgrade kept pet, coins and pairing; games play; game on/off switch from the console removes the game from the device menu and survives a restart. Coin amounts on the result card not confirmed by owner (card says GP, shown 3 s; follow-up ticket). Claude test CYD: exact release app image synced on 1.4.5, coded and uncoded rounds, play reports accepted by production; frame timing identical to 1.4.4."
   }
 }
