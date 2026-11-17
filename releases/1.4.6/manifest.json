@@ -243,7 +243,9 @@
   },
   "includes_device_nvs": false,
   "publication": {
-    "status": "pending",
-    "needs": "owner on-device test"
+    "status": "approved",
+    "date": "2026-11-17",
+    "by": "owner",
+    "tested": "Owner device test 2026-11-17: Application Only upgrade kept pet/coins/Wi-Fi; result card shows +N coins / No coins with reason and stays until tapped; idle Seed Catch/Leaf Pong pays nothing"
   }
 }
