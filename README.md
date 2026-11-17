@@ -12,9 +12,15 @@ This repository contains clean, credential-free binaries for first-time installa
 
 ---
 
-## 📦 Release Artifacts (v1.4.5)
+## 📦 Release Artifacts (v1.4.6)
 
-**What's new in v1.4.5**
+**What's new in v1.4.6**
+- **Coins for playing, not for waiting:** in Seed Catch and Leaf Pong, a catch or return only counts once you have moved, so leaving a game running no longer earns coins.
+- **Leaf Pong rounds differ:** each Leaf Pong round now starts its serve from the round's code, so rounds no longer all play out the same way.
+- **Clear game results:** the result card says **+N coins** or **No coins**, and why (score 10+ to earn coins, or your Bipkin is too tired). It stays until you tap it. Every game's start screen says "Score 10+ to earn coins".
+- **Friendly busy message:** if talkth.ai is too busy to set up a new device, the screen says so and tries again within 10 minutes. Your pet is safe.
+
+**Also new since v1.4.4 (v1.4.5)**
 - **Game results reach talkth.ai:** when a game ends, the device sends its score, misses and coins to talkth.ai. If it is offline, it keeps up to 8 results and sends them when it reconnects.
 - **Round codes:** before a game starts, the device takes a one-time round code from talkth.ai and uses it to set up the round. The code goes back with the result, so talkth.ai can tell a real round from a made-up one. Without a code (for example offline) the game plays as before.
 - **Games can be switched off from talkth.ai:** talkth.ai can turn single games off. The device leaves them out of its game menu within about a minute and remembers the choice after a restart. If every game of one kind is off, the device offers all of that kind.
@@ -52,25 +58,25 @@ This repository contains clean, credential-free binaries for first-time installa
 - **Unguessable device IDs for new boards:** a newly set up device gets an ID nobody can predict. Devices that are already paired keep their ID.
 - **The full store on the device:** every hat, pair of sunglasses, halo and other wearable item now shows on every species (133 pieces of art), and the forest pet's eyes are cleaner.
 
-Upgrading from v1.3.0, v1.4.0, v1.4.1, v1.4.2, v1.4.3 or v1.4.4 keeps your pet, coins, Wi-Fi and pairing. In the Web Flasher, answer **no** when it asks to erase the device. The bootloader, partition table and boot data are byte-identical to v1.3.0, v1.4.0, v1.4.1, v1.4.2, v1.4.3 and v1.4.4; only the application changes, so an **Application Only** upgrade also works.
+Upgrading from v1.3.0, v1.4.0, v1.4.1, v1.4.2, v1.4.3, v1.4.4 or v1.4.5 keeps your pet, coins, Wi-Fi and pairing. In the Web Flasher, answer **no** when it asks to erase the device. The bootloader, partition table and boot data are byte-identical to v1.3.0, v1.4.0, v1.4.1, v1.4.2, v1.4.3, v1.4.4 and v1.4.5; only the application changes, so an **Application Only** upgrade also works.
 
 | File | Offset | Description | Size |
 |---|---|---|---|
-| `bipkins-cyd-1.4.5-full.bin` | `0x0` | **Full Flash Image**: complete flash image for brand new boards (erases saved pets and Wi-Fi) | ~1.4 MB |
-| `bipkins-cyd-1.4.5-app.bin` | `0x10000` | **Application Only**: upgrade image that **preserves existing pet NVS state** | ~1.4 MB |
-| `bipkins-cyd-1.4.5-bootloader.bin` | `0x1000` | ESP32 2nd stage bootloader (ESP-IDF 5.5, unchanged since v1.2.0) | ~27 KB |
-| `bipkins-cyd-1.4.5-partitions.bin` | `0x8000` | 2 MB partition table (unchanged from v1.3.0) | ~3 KB |
-| `bipkins-cyd-1.4.5-ota_data_initial.bin` | `0xe000` | OTA boot data (blank; boots the app at `0x10000`) | ~8 KB |
-| `manifest.json` | - | Web Flasher manifest (build metadata: `releases/1.4.5/manifest.json`) | - |
-| `SHA256SUMS` | - | SHA-256 checksums of the v1.4.5 binaries (earlier: `releases/<version>/SHA256SUMS`) | - |
+| `bipkins-cyd-1.4.6-full.bin` | `0x0` | **Full Flash Image**: complete flash image for brand new boards (erases saved pets and Wi-Fi) | ~1.4 MB |
+| `bipkins-cyd-1.4.6-app.bin` | `0x10000` | **Application Only**: upgrade image that **preserves existing pet NVS state** | ~1.4 MB |
+| `bipkins-cyd-1.4.6-bootloader.bin` | `0x1000` | ESP32 2nd stage bootloader (ESP-IDF 5.5, unchanged since v1.2.0) | ~27 KB |
+| `bipkins-cyd-1.4.6-partitions.bin` | `0x8000` | 2 MB partition table (unchanged from v1.3.0) | ~3 KB |
+| `bipkins-cyd-1.4.6-ota_data_initial.bin` | `0xe000` | OTA boot data (blank; boots the app at `0x10000`) | ~8 KB |
+| `manifest.json` | - | Web Flasher manifest (build metadata: `releases/1.4.6/manifest.json`) | - |
+| `SHA256SUMS` | - | SHA-256 checksums of the v1.4.6 binaries (earlier: `releases/<version>/SHA256SUMS`) | - |
 
 ### Checksums
 ```text
-a81d4dccf48883d5461a3d7e8085062fa1ba66660013ffcdbdee6de126dd2682  bipkins-cyd-1.4.5-app.bin
-4b6bdecb06a93e3c78e8cb077b61c62e799b94c5af6335fb64f718f4ed0b0be6  bipkins-cyd-1.4.5-bootloader.bin
-7ff8714c3f78457039c04db223329e3358dc345b955d78dd9dafed7e0aef075c  bipkins-cyd-1.4.5-full.bin
-7d2c7ac4888bfd75cd5f56e8d61f69595121183afc81556c876732fd3782c62f  bipkins-cyd-1.4.5-ota_data_initial.bin
-2cdf91f63452a1305bf94210b90bea5a5477c38604fb25a92c26704ba454d8b1  bipkins-cyd-1.4.5-partitions.bin
+695c5af225b85231a3ca8449dc6912d41caa6bfc18ab2533cbb418f10d7759cd  bipkins-cyd-1.4.6-app.bin
+4b6bdecb06a93e3c78e8cb077b61c62e799b94c5af6335fb64f718f4ed0b0be6  bipkins-cyd-1.4.6-bootloader.bin
+bbf1f7ecbc848146e3bddf40e975a603291a1a050f601b111e0bae2ce7d01965  bipkins-cyd-1.4.6-full.bin
+7d2c7ac4888bfd75cd5f56e8d61f69595121183afc81556c876732fd3782c62f  bipkins-cyd-1.4.6-ota_data_initial.bin
+2cdf91f63452a1305bf94210b90bea5a5477c38604fb25a92c26704ba454d8b1  bipkins-cyd-1.4.6-partitions.bin
 ```
 
 ---
@@ -137,17 +143,17 @@ cd docs/vendor && sha256sum -c SHA256SUMS
 ```bash
 esptool.py --chip esp32 --port /dev/ttyUSB0 --baud 921600 \
   write_flash -z --flash_mode dio --flash_freq 80m --flash_size 2MB \
-  0x0 bipkins-cyd-1.4.5-full.bin
+  0x0 bipkins-cyd-1.4.6-full.bin
 ```
 
 Alternatively, flashing individual components:
 ```bash
 esptool.py --chip esp32 --port /dev/ttyUSB0 --baud 921600 \
   write_flash -z --flash_mode dio --flash_freq 80m --flash_size 2MB \
-  0x1000  bipkins-cyd-1.4.5-bootloader.bin \
-  0x8000  bipkins-cyd-1.4.5-partitions.bin \
-  0xe000  bipkins-cyd-1.4.5-ota_data_initial.bin \
-  0x10000 bipkins-cyd-1.4.5-app.bin
+  0x1000  bipkins-cyd-1.4.6-bootloader.bin \
+  0x8000  bipkins-cyd-1.4.6-partitions.bin \
+  0xe000  bipkins-cyd-1.4.6-ota_data_initial.bin \
+  0x10000 bipkins-cyd-1.4.6-app.bin
 ```
 
 ---
@@ -159,7 +165,7 @@ esptool.py --chip esp32 --port /dev/ttyUSB0 --baud 921600 \
 ```bash
 esptool.py --chip esp32 --port /dev/ttyUSB0 --baud 921600 \
   write_flash -z --flash_mode dio --flash_freq 80m --flash_size 2MB \
-  0x10000 bipkins-cyd-1.4.5-app.bin
+  0x10000 bipkins-cyd-1.4.6-app.bin
 ```
 
 ---
